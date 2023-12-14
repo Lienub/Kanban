@@ -16,7 +16,12 @@ function saveTask() {
   var task_description = document.getElementById("task-description").value;
   var task_start_date = document.getElementById("task-start-date").value;
   var task_end_date = document.getElementById("task-end-date").value;
-  var task_assignment = document.getElementById("task-assignment").value;
+  // Get all assignments
+  var assignments_block = document.getElementById("assignments-block");
+  var assignment_element = assignments_block.querySelectorAll("p");
+  var assignments_list = Array.from(assignment_element).map(
+    (assignment_element) => assignment_element.textContent.trim()
+  );
   var task_code_color = document.getElementById("task-code-color").value;
   // Get all tags
   var tags_block = document.getElementById("tags-block");
@@ -34,8 +39,8 @@ function saveTask() {
         <p>${task_description}</p>
         <p>Start Date: ${task_start_date}</p>
         <p>End Date: ${task_end_date}</p>
-        <p>Assignment: ${task_assignment}</p>
-        <p>Tag: ${tags_list.join(",")}</p>
+        <p>Assignment(s): ${assignments_list.join(',')}</p>
+        <p>Tag(s): ${tags_list.join(",")}</p>
         <div style="background: ${task_code_color};width:20px; height:20px; border-radius: 100%"></div>
     `;
 
@@ -54,4 +59,8 @@ function resetFormToCreateTask() {
     inputs[i].value = "";
   }
   container_form.querySelector("textarea").value = "";
+  var assignments_block = document.getElementById("assignments-block");
+  assignments_block.innerHTML = "";
+  var tags_block = document.getElementById("tags-block");
+  tags_block.innerHTML = "";
 }

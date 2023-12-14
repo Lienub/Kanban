@@ -55,14 +55,14 @@
                     <input type="date" name="task-end-date" id="task-end-date">
                 </div>
                 <div>
-                    <label for="task-assignment">Affectation</label>
-                    <input type="text" name="task-assignment" id="task-assignment">
+                    <label for="task-assignment">Affectation(s)</label>
+                    <input type="text" name="task-assignment" id="task-assignment" onkeydown="createNewAssignment(event)">
+                    <div id="assignments-block"></div>
                 </div>
                 <div>
                     <label for="task-tag">Tag</label>
                     <input type="text" name="task-tag" id="task-tag" onkeydown="createNewTag(event)">
-                    <div id="tags-block">
-                    </div>
+                    <div id="tags-block"></div>
                 </div>
                 <div>
                     <label for="task-name">Code couleur</label>
@@ -76,5 +76,7 @@
     </main>
     <script src="./resources/scripts/tasks-module.js"></script>
     <script src="./resources/scripts/tags-module.js"></script>
+    <script src="./resources/scripts/assignments-module.js"></script>
 </body>
+
 </html>
