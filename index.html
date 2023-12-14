@@ -37,7 +37,7 @@
         </section>
         <section>
             <div id="create-new-task-form">
-                <h2>New Task</h2>
+                <h2>Nouvelle tache</h2>
                 <div>
                     <label for="task-name">Titre</label>
                     <input type="text" name="task-name" id="task-name">
@@ -55,12 +55,14 @@
                     <input type="date" name="task-end-date" id="task-end-date">
                 </div>
                 <div>
-                    <label for="task-affectation">Affectation</label>
-                    <input type="text" name="task-affectation" id="task-affectation">
+                    <label for="task-assignment">Affectation</label>
+                    <input type="text" name="task-assignment" id="task-assignment">
                 </div>
                 <div>
                     <label for="task-tag">Tag</label>
-                    <input type="text" name="task-tag" id="task-tag">
+                    <input type="text" name="task-tag" id="task-tag" onkeydown="createNewTag(event)">
+                    <div id="tags-block">
+                    </div>
                 </div>
                 <div>
                     <label for="task-name">Code couleur</label>
@@ -72,6 +74,7 @@
             </div>
         </section>
     </main>
-    <script src="./resources/scripts/scripts.js"></script>
+    <script src="./resources/scripts/tasks-module.js"></script>
+    <script src="./resources/scripts/tags-module.js"></script>
 </body>
 </html>
