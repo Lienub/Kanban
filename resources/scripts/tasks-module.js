@@ -36,7 +36,7 @@ function saveTask() {
         <p>End Date: ${task_end_date}</p>
         <p>Assignment: ${task_assignment}</p>
         <p>Tag: ${tags_list.join(",")}</p>
-        <p>Code Color: ${task_code_color}</p>
+        <div style="background: ${task_code_color};width:20px; height:20px; border-radius: 100%"></div>
     `;
 
   todo_column.appendChild(newTask);
