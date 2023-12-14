@@ -1,0 +1,17 @@
+image: ubuntu:latest
+
+stages:
+  - build
+  - test
+  - deploy
+  - release
+
+review_app:
+  stage: deploy
+  script:
+    - echo "Deploy to review app..."
+  only:
+    - merge_requests
+  trigger:
+    include: "pipelines/review_app.yml"
+  
