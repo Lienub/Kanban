@@ -1,38 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <link rel="stylesheet" href="./style.css">
-        <title>Kanban Oueb</title>
-    </head>
-    <body>
-        <header>
-            <h1>Kanban Oueb</h1>
-        </header>
-        <main>
-            <div>
-                <button>Créer une tâche</button>
+
+<head>
+    <link rel="stylesheet" href="./resources/styles/styles.css">
+    <title>Kanban Oueb</title>
+</head>
+
+<body>
+    <header>
+        <h1>Kanban Oueb</h1>
+    </header>
+    <main>
+        <div>
+            <button id="create-task-button" onclick="displayFormToCreateTask()">Créer une tâche</button>
+        </div>
+        <section id="todo">
+            <h2>TODO</h2>
+            <article>
+                <h2>Tâche 1</h2>
+                <p>détails</p>
+            </article>
+        </section>
+        <section id="wip">
+            <h2>WIP</h2>
+            <article>
+                <h2>Tâche 2</h2>
+                <p>détails</p>
+            </article>
+        </section>
+        <section id="done">
+            <h2>DONE</h2>
+            <article>
+                <h2>Tâche 3</h2>
+                <p>détails</p>
+            </article>
+        </section>
+        <section>
+            <div id="create-new-task-form">
+                <h2>New Task</h2>
+                <div>
+                    <label for="task-name">Titre</label>
+                    <input type="text" name="task-name" id="task-name">
+                </div>
+                <div>
+                    <label for="task-description">Description</label>
+                    <textarea name="task-description" id="task-description" cols="70" rows="10"></textarea>
+                </div>
+                <div>
+                    <label for="task-start-date">Date de début</label>
+                    <input type="date" name="task-start-date" id="task-start-date">
+                </div>
+                <div>
+                    <label for="task-end-date">Date de fin</label>
+                    <input type="date" name="task-end-date" id="task-end-date">
+                </div>
+                <div>
+                    <label for="task-affectation">Affectation</label>
+                    <input type="text" name="task-affectation" id="task-affectation">
+                </div>
+                <div>
+                    <label for="task-tag">Tag</label>
+                    <input type="text" name="task-tag" id="task-tag">
+                </div>
+                <div>
+                    <label for="task-name">Code couleur</label>
+                    <input type="color" name="task-code-color" id="task-code-color">
+                </div>
+                <div>
+                    <button id="save-button" onclick="saveTask()">Save</button>
+                </div>
             </div>
-            <section>
-                <h1>TODO</h1>
-                <article>
-                    <h2>Tâche 1</h2>
-                    <p>détails</p>
-                </article>
-            </section>
-            <section>
-                <h1>WIP</h1>
-                <article>
-                    <h2>Tâche 2</h2>
-                    <p>détails</p>
-                </article>
-            </section>
-            <section>
-                <h1>DONE</h1>
-                <article>
-                    <h2>Tâche 3</h2>
-                    <p>détails</p>
-                </article>
-            </section>
-        </main>
-    </body>
+        </section>
+    </main>
+    <script src="./resources/scripts/scripts.js"></script>
+</body>
 </html>
