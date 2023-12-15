@@ -1,0 +1,218 @@
+/**
+   ================= FONTS ================= H
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,600;1,100;1,400&family=Roboto:ital,wght@0,100;0,400;0,700;1,400;1,500;1,700&display=swap');
+
+@font-face {
+    font-family: 'Muffin';
+    src: url('../fonts/muffin/Muffin.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/**
+   ================= BASES ================= H
+*/
+:root {
+    /* COLORS */
+    --main-bg-color: #d2a56d;
+    --main-bg-color-2: #d2a56dc7;
+    --text-color: #000000;
+    --text-color-2: #685237c5;
+    /* ROW COLORS */
+    --todo-row-color: #FEE3A2;
+    --wip-row-color: #ebbf11d0;
+    --done-row-color: #05823fc0;
+
+    /* FONT FAMILY */
+    --main-font-family: 'Roboto', sans-serif;
+    --main-title-font-family: 'Muffin', cursive;
+}
+
+/* CHANGE SCROLLBAR COLOR */
+body::-webkit-scrollbar {
+    width: 20px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--main-bg-color-2);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--text-color-2);
+    border-radius: 20px;
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--main-font-family);
+}
+
+.cross-sell {
+    background-color: var(--main-bg-color)
+}
+
+
+/**
+   ================= HOME PAGE ================= H
+*/
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--main-bg-color);
+
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    height: auto;
+    width: 100%;
+    background-color: var(--main-bg-color-2);
+}
+
+h1 {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: var(--text-color-2);
+    font-family: var(--main-title-font-family);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.kanban-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 90%;
+    border-radius: 20px;
+    margin-top: 40px;
+    border: 20px rgb(77, 58, 41) solid;
+    background-image: url(../images/liege.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.kanban-container>div:not(:last-child) {
+    align-items: center;
+    height: auto;
+    min-height: 300px;
+    width: 100%;
+    margin-top: 40px;
+    border-bottom: 4px rgb(99, 76, 56) solid;
+    border-top: 4px rgb(99, 76, 56) solid;
+    background-color: transparent
+}
+
+.row-kanban {
+    height: auto;
+    min-height: 300px;
+    width: 100%;
+}
+
+.row-kanban-block:nth-child(1) h2 {
+    color: var(--todo-row-color);
+    background-color: #68523788;
+}
+
+.row-kanban-block:nth-child(2) h2 {
+    color: var(--wip-row-color);
+    background-color: #68523788;
+}
+
+.row-kanban-block:nth-child(3) h2 {
+    color: var(--done-row-color);
+    margin-bottom: 40px;
+    background-color: #68523788;
+}
+
+.row-kanban-block h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 10px;
+    color: var(--text-color-2);
+    font-family: var(--main-title-font-family);
+
+}
+
+/* Create Task Button */
+.create-task-block {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center;
+    width: auto;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 40px;
+    height: 50px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.create-task-block button {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #362b1e;
+    font-family: var(--main-title-font-family);
+    background-color: transparent;
+    border-bottom: #685237c5 5px solid;
+    border-left: none;
+    border-radius: 10px;
+    border-top: none;
+    border-right: none;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 20px;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+    justify-content: center;
+}
+
+.create-task-block button:hover {
+    transform: translateY(-5px);
+    transition: 0.5s;
+    background-color: var(--main-bg-color-2);
+    color: var(--text-color-2);
+}
+
+.create-task-block button i {
+    font-size: 2rem;
+    margin-right: 5px;
+}
+
+
+
+/**
+   ================= CREATE TASK FORM ================= H
+*/
+
+/**
+   ================= POPUP INFORMATION TASK ================= H
+*/
+
+/**
+   ================= POST-ITS ================= H
+*/
