@@ -9,7 +9,7 @@ build:
   stage: build
   script:
     - apt-get update -qy
-    - apt-get install -y nodejs npm
+    - apt-get install -y nodejs npm curl
     - npm install -g n
     - n stable
     - npm install -g vite
