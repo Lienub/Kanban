@@ -22,6 +22,7 @@ review_app:
   script:
     - echo "Deploying Review App..."
     - mkdir -p public
+    - ls
     - cp -r dist/dist/* public/
   artifacts:
     paths:
