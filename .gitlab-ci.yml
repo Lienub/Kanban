@@ -9,9 +9,15 @@ stages:
 review_app:
   stage: deploy
   only:
-    - merge_requests
+    - branches
+  except:
+    - /^develop-.*$/
+    - /^main-.*$/
+  changes:
+    - "pipelines/review_app.yml"
   trigger:
     include: "pipelines/review_app.yml"
+
 
 
   
