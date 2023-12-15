@@ -10,9 +10,10 @@ build:
   script:
     - apt-get update -qy
     - apt-get install -y nodejs npm curl
-    - npm install
     - npm install -g n
     - n stable
+    - npm install 
+    - npm install -g semver
     - npm install -g vite
     - npm run build
   artifacts:
