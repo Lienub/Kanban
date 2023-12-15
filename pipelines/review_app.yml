@@ -22,7 +22,7 @@ review_app:
   script:
     - echo "Deploying Review App..."
     - mkdir -p public
-    - cp -r dist/* public/
+    - cp -r dist/dist/* public/
   artifacts:
     paths:
       - public
@@ -49,7 +49,7 @@ pages:
   script:
     - echo "Deploying to GitLab Pages.."
     - mkdir .public
-    - cp -r * .public
+    - cp -r dist/* .public
     - mv .public public
   artifacts:
     paths:
