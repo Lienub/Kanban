@@ -5,6 +5,16 @@ stages:
   - test
   - deploy
   - release
+  - test
+
+validate_html:
+  stage: test
+  image: node:14
+  script:
+    - apt-get update -qy
+    - apt-get install -y wget
+    - wget https://validator.w3.org/nu/w3c-validator-cli.jar
+    - java -jar w3c-validator-cli.jar --validation-level=error --format=text index.html
 
 review_app:
   stage: deploy
@@ -12,4 +22,6 @@ review_app:
     - merge_requests
   trigger:
     include: "pipelines/review_app.yml"
+
+
   
