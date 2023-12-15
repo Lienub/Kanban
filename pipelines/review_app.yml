@@ -3,21 +3,6 @@ stages:
   - deploy
   - pages
 
-variables:
-  VITE_APP_MODE: preview
-
-build:
-  stage: build
-  script:
-    - apt-get update -qy
-    - apt-get install -y nodejs npm
-    - npm install -g yarn
-    - yarn install
-    - yarn build
-  artifacts:
-    paths:
-      - dist
-
 review_app:
   stage: deploy
   script:
