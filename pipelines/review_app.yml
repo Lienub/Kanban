@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - pages
 
 variables:
   VITE_APP_MODE: preview
@@ -45,7 +46,7 @@ cleanup_review_app:
   when: manual
 
 pages:
-  stage: deploy
+  stage: pages
   script:
     - echo "Deploying to GitLab Pages.."
     - mkdir .public
