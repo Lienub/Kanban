@@ -1,0 +1,15 @@
+image: ubuntu:latest
+
+stages:
+  - build
+  - test
+  - deploy
+  - release
+
+review_app:
+  stage: deploy
+  only:
+    - merge_requests
+  trigger:
+    include: "pipelines/review_app.yml"
+  
