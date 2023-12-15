@@ -14,7 +14,8 @@ document.querySelector("#app").innerHTML = `
 </header>
 <main>
     <div>
-        <button id="create-task-button">Créer une tâche</button>
+        <input type="checkbox" id="toggleForm">
+        <label for="toggleForm" id="create-task-button">Créer une tâche</label>
     </div>
     <section id="todo">
         <h2>TODO</h2>
@@ -27,41 +28,49 @@ document.querySelector("#app").innerHTML = `
     </section>
     <section>
         <div id="create-new-task-form">
-            <button id="close-button">X</button>
-            <h2>Nouvelle tache</h2>
             <div>
-                <label for="task-name">Titre</label>
-                <input type="text" name="task-name" id="task-name">
-            </div>
+                <div id="task-form-header">
+                    <input type="checkbox" id="closeForm">
+                    <label for="closeForm" id="close-button"> 
+                        <img src="./src/assets/images/close-icon.svg" alt="X">
+                    </label>
+                    <h2>Nouvelle tache</h2>
+                    <img src="./src/assets/images/cute-cupcake.png" alt="Cupcake">
+                </div>
+                <div>
+                    <input type="text" name="task-name" id="task-name" placeholder="Titre">
+                    <div id="task-form-color">
+                        <label for="task-name">Code couleur</label>
+                        <input type="color" name="task-code-color" id="task-code-color">
+                    </div>
+                </div>
+                <div>
+                    <textarea name="task-description" id="task-description" resize="none" cols="50" rows="10" placeholder="Description"></textarea>
+                </div>
+                <div id="task-form-dates">
+                    <div>
+                        <label for="task-start-date">Date de début</label>
+                        <input type="date" name="task-start-date" id="task-start-date">
+                    </div>
+                    <div>
+                        <label for="task-end-date">Date de fin</label>
+                        <input type="date" name="task-end-date" id="task-end-date">
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type="text" name="task-assignment" id="task-assignment" placeholder="Affectation(s)">
+                        <div id="assignments-block"></div>
+                    </div>
+                    <div>
+                        <input type="text" name="task-tag" id="task-tag" placeholder="Tag">
+                        <div id="tags-block"></div>
+                    </div>
+                </div>
+                <button id="save-button">
+                    <img src="./src/assets/images/submit-icon.svg" alt="Submit">
+                </button>
             <div>
-                <label for="task-description">Description</label>
-                <textarea name="task-description" id="task-description" cols="70" rows="10"></textarea>
-            </div>
-            <div>
-                <label for="task-start-date">Date de début</label>
-                <input type="date" name="task-start-date" id="task-start-date">
-            </div>
-            <div>
-                <label for="task-end-date">Date de fin</label>
-                <input type="date" name="task-end-date" id="task-end-date">
-            </div>
-            <div>
-                <label for="task-assignment">Affectation(s)</label>
-                <input type="text" name="task-assignment" id="task-assignment">
-                <div id="assignments-block"></div>
-            </div>
-            <div>
-                <label for="task-tag">Tag</label>
-                <input type="text" name="task-tag" id="task-tag">
-                <div id="tags-block"></div>
-            </div>
-            <div>
-                <label for="task-name">Code couleur</label>
-                <input type="color" name="task-code-color" id="task-code-color">
-            </div>
-            <div>
-                <button id="save-button">Save</button>
-            </div>
         </div>
     </section>
 </main>
