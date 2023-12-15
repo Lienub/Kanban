@@ -25,6 +25,8 @@ export function createTask() {
   var newTask = document.createElement("div");
   newTask.className = "task";
   newTask.id = "task-" + taskIdCounter++;
+  newTask.draggable = true;
+  newTask.addEventListener("dragstart", dragTask);
 
   newTask.innerHTML += `
             <h3>${task_name}</h3>
@@ -38,4 +40,8 @@ export function createTask() {
 
   todo_column.appendChild(newTask);
   resetFormToCreateTask();
+}
+
+export function dragTask(event) {
+    event.dataTransfer.setData("id", event.target.id);
 }

@@ -20,3 +20,22 @@ export function closeFormToCreateTask(element) {
 
   element.addEventListener("click", () => setDisplayForm());
 }
+
+export function dropTask(element) {
+    if (element == null) return;
+
+    element.addEventListener("drop", (event) => {
+        event.preventDefault();
+        const id = event.dataTransfer.getData("id");
+        const task = document.getElementById(id);
+        event.target.appendChild(task);
+    });
+}
+
+export function allowDropTask(element) {
+    if (element == null) return;
+
+    element.addEventListener("dragover", (event) => {
+        event.preventDefault();
+    });
+}
