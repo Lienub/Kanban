@@ -1,0 +1,51 @@
+/*  ====================
+    create-new-task-form
+*/
+#create-new-task-form {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+/*
+ CONTROL BUTTONS
+*/
+
+/* Common styles for control buttons */
+#create-task-button {
+color: white;
+padding: 10px 20px;
+cursor: pointer;
+}
+
+#create-task-button {
+background-color:  #87C159 ;
+}
+
+#create-task-button:hover {
+background-color: #46a049;
+}
+
+
+#close-button {
+    background-color: #f44336;
+    align-self: start;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+}
+
+#close-button > img {
+    filter:invert(1);
+}
+
+#close-button:hover {
+    background-color: #da190b;
+}
+  
+/* Hide the checkbox */
+#toggleForm, #closeForm {
+display: none;
+}
+
+/* =============== */
