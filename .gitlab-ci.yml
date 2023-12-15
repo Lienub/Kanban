@@ -8,8 +8,6 @@ stages:
 
 review_app:
   stage: deploy
-  script:
-    - echo "Deploy to review app..."
   only:
     - merge_requests
   trigger:
