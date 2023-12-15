@@ -14,7 +14,7 @@ export function createTag(event) {
 
     var newTagModel = new TagModel(new_tag);
 
-    TagView.render(newTagModel);
+    TagView.render(newTagModel)
   }
 }
 
