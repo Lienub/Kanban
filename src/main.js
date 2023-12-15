@@ -7,6 +7,9 @@ import {
 } from "./modules/tasks/tasks-event-handlers.js";
 import { eventSaveTag } from "./modules/tags/tags-event-handlers.js";
 import { eventSaveAssignment } from "./modules/assignments/assignments-event-handlers.js";
+import closeIcon from "./assets/images/close-icon.svg";
+import submitIcon from "./assets/images/submit-icon.svg";
+import cuteCupcake from "./assets/images/cute-cupcake.png";
 
 document.querySelector("#app").innerHTML = `
 <header>
@@ -32,10 +35,10 @@ document.querySelector("#app").innerHTML = `
                 <div id="task-form-header">
                     <input type="checkbox" id="closeForm">
                     <label for="closeForm" id="close-button"> 
-                        <img src="./src/assets/images/close-icon.svg" alt="X">
+                        <img src=${closeIcon} alt="X">
                     </label>
                     <h2>Nouvelle tache</h2>
-                    <img src="./src/assets/images/cute-cupcake.png" alt="Cupcake">
+                    <img src=${cuteCupcake} alt="Cupcake">
                 </div>
                 <div>
                     <input type="text" name="task-name" id="task-name" placeholder="Titre">
@@ -68,7 +71,7 @@ document.querySelector("#app").innerHTML = `
                     </div>
                 </div>
                 <button id="save-button">
-                    <img src="./src/assets/images/submit-icon.svg" alt="Submit">
+                    <img src=${submitIcon} alt="Submit">
                 </button>
             <div>
         </div>
