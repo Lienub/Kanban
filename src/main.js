@@ -1,10 +1,7 @@
-import {
-  displayFormToCreateTask,
-  closeFormToCreateTask,
-  saveTask,
-} from "./modules/tasks/tasks-event-handlers.js";
-import { eventSaveTag } from "./modules/tags/tags-event-handlers.js";
-import { eventSaveAssignment } from "./modules/assignments/assignments-event-handlers.js";
+import TaskController from "./controllers/TaskController.js";
+import AssignmentController from "./controllers/AssignmentController.js";
+import TagController from "./controllers/TagController.js";
+
 
 document.querySelector("#app").innerHTML = `
 <header>
@@ -64,11 +61,7 @@ document.querySelector("#app").innerHTML = `
 </section>
 </main>
 `;
-// Add event listeners for tasks buttons
-displayFormToCreateTask(document.getElementById("create-task-button"));
-closeFormToCreateTask(document.getElementById("close-button"));
-saveTask(document.getElementById("save-button"));
-// Add event listeners for assignments
-eventSaveAssignment(document.getElementById("task-assignment"));
-// Add event listeners for tags
-eventSaveTag(document.getElementById("task-tag"));
+
+new TaskController();
+new AssignmentController();
+new TagController();

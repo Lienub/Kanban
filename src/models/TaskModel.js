@@ -1,9 +1,28 @@
-import { resetFormToCreateTask } from "./utils/reset-form.js";
+import { resetFormToCreateTask } from "../utils/resetForm";
+import TaskView from "../views/TaskView";
 
-let taskIdCounter = 1;
+export default class TaskModel {
+  constructor(
+    name,
+    description,
+    startDate,
+    endDate,
+    assignments,
+    tags,
+    codeColor
+  ) {
+    this.name = name;
+    this.description = description;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.assignments = assignments;
+    this.tags = tags;
+    this.codeColor = codeColor;
+  }
+}
 
 export function createTask() {
-  var todo_column = document.getElementById("todo");
+  var todoColumn = document.getElementById("todo");
   var task_name = document.getElementById("task-name").value;
   var task_description = document.getElementById("task-description").value;
   var task_start_date = document.getElementById("task-start-date").value;
@@ -22,20 +41,16 @@ export function createTask() {
     tag_element.textContent.trim()
   );
   // Create the task form
-  var newTask = document.createElement("div");
-  newTask.className = "task";
-  newTask.id = "task-" + taskIdCounter++;
+  var newTaskModel = new TaskModel(
+    task_name,
+    task_description,
+    task_start_date,
+    task_end_date,
+    assignments_list,
+    tags_list,
+    task_code_color
+  );
 
-  newTask.innerHTML += `
-            <h3>${task_name}</h3>
-            <p>${task_description}</p>
-            <p>Start Date: ${task_start_date}</p>
-            <p>End Date: ${task_end_date}</p>
-            <p>Assignment(s): ${assignments_list.join(",")}</p>
-            <p>Tag(s): ${tags_list.join(",")}</p>
-            <div style="background: ${task_code_color};width:20px; height:20px; border-radius: 100%"></div>
-        `;
-
-  todo_column.appendChild(newTask);
+  TaskView.render(newTaskModel, todoColumn);
   resetFormToCreateTask();
 }

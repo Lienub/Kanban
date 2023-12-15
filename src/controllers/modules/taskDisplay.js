@@ -1,4 +1,4 @@
-import { resetFormToCreateTask } from "./utils/reset-form.js";
+import { resetFormToCreateTask } from "../../utils/resetForm";
 
 export function setDisplayForm() {
   var create_new_task_form = document.getElementById("create-new-task-form");
