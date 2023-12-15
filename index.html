@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 
 <head>
     <link rel="stylesheet" href="./resources/styles/styles.css">
     <title>Kanban Oueb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
 </head>
 
 <body>
@@ -16,27 +18,16 @@
         </div>
         <section id="todo">
             <h2>TODO</h2>
-            <article>
-                <h2>Tâche 1</h2>
-                <p>détails</p>
-            </article>
         </section>
         <section id="wip">
             <h2>WIP</h2>
-            <article>
-                <h2>Tâche 2</h2>
-                <p>détails</p>
-            </article>
         </section>
         <section id="done">
             <h2>DONE</h2>
-            <article>
-                <h2>Tâche 3</h2>
-                <p>détails</p>
-            </article>
         </section>
         <section>
             <div id="create-new-task-form">
+                <button id="close-button" onclick="closeFormToCreateTask()">X</button>
                 <h2>Nouvelle tache</h2>
                 <div>
                     <label for="task-name">Titre</label>
@@ -74,9 +65,9 @@
             </div>
         </section>
     </main>
-    <script src="./resources/scripts/tasks-module.js"></script>
-    <script src="./resources/scripts/tags-module.js"></script>
-    <script src="./resources/scripts/assignments-module.js"></script>
+    <script src="./src/scripts/tasks-module.js"></script>
+    <script src="./src/scripts/tags-module.js"></script>
+    <script src="./src/scripts/assignments-module.js"></script>
 </body>
 
 </html>

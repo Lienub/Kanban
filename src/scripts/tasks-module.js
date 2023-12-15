@@ -64,3 +64,8 @@ function resetFormToCreateTask() {
   var tags_block = document.getElementById("tags-block");
   tags_block.innerHTML = "";
 }
+
+function closeFormToCreateTask() {
+  resetFormToCreateTask();
+  displayFormToCreateTask();
+}
