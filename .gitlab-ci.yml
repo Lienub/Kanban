@@ -13,8 +13,6 @@ review_app:
   except:
     - /^develop-.*$/
     - /^main-.*$/
-  changes:
-    - "pipelines/review_app.yml"
   trigger:
     include: "pipelines/review_app.yml"
 
