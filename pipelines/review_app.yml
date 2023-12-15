@@ -10,6 +10,8 @@ build:
   script:
     - apt-get update -qy
     - apt-get install -y nodejs npm
+    - npm install -g n
+    - n stable
     - npm install -g vite
     - npm run build
   artifacts:
