@@ -1,11 +1,11 @@
 import { resetFormToCreateTask } from "../../utils/resetForm";
-let taskIdCounter = 1;
+import StatusEnum from "../../models/StatusEnum";
 
 export default class TaskView {
   static render(taskModel) {
     const newTask = document.createElement("div");
     newTask.className = "task";
-    newTask.id = `task-${taskIdCounter++}`;
+    newTask.id = `task-${taskModel.id}`;
     newTask.draggable = true;
     newTask.addEventListener("dragstart", dragTask);
 
@@ -20,8 +20,16 @@ export default class TaskView {
           taskModel.codeColor
         };width:20px; height:20px; border-radius: 100%"></div>
       `;
-    var todoColumn = document.getElementById("todo");
-    todoColumn.appendChild(newTask);
+    if(taskModel.status == StatusEnum.TODO) {
+      const todoRow = document.getElementById("todo");
+      todoRow.appendChild(newTask);
+    } else if(taskModel.status == StatusEnum.WIP) {
+      const wipRow = document.getElementById("wip");
+      wipRow.appendChild(newTask);
+    } else if(taskModel.status === StatusEnum.DONE) {
+      const doneRow = document.getElementById("done");
+      doneRow.appendChild(newTask);
+    } 
     resetFormToCreateTask();
   }
 }
