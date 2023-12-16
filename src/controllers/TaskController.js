@@ -115,11 +115,13 @@ export default class TaskController {
         }
       });
       if (draggedTask) {
-        let status = event.target.parentElement.id.toLowerCase();
+        let status = event.target.id;
         this.localStorage.modifyTaskStatus(taskId, status);
       }
       const task = document.getElementById(id);
-      event.target.appendChild(task);
+      if (event.target === element) {
+        event.target.appendChild(task);
+      }
     });
 
     element.addEventListener("dragover", (event) => {

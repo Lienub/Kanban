@@ -8,6 +8,7 @@ export function setDisplayForm() {
   toggleFormCheckbox.addEventListener("change", () => {
     if (toggleFormCheckbox.checked) {
       createNewTaskForm.classList.add("show");
+      document.getElementById("task-code-color").value = "#feff9c";
       toggleFormCheckbox.checked = false;
     }
   });
