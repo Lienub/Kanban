@@ -4,13 +4,13 @@ import assignmentIcon from "../../assets/images/assignment.svg";
 import tagIcon from "../../assets/images/tag.svg";
 import dateIcon from "../../assets/images/calendar.svg";
 import pin from "../../assets/images/cute-cupcake.png";
-let taskIdCounter = 1;
+import StatusEnum from "../../models/StatusEnum";
 
 export default class TaskView {
-  static render(taskModel) {
+  static render(taskModel, localStorage) {
     const newTask = document.createElement("div");
     newTask.className = "task";
-    newTask.id = `task-${taskIdCounter++}`;
+    newTask.id = `task-${taskModel.id}`;
     newTask.draggable = true;
     newTask.addEventListener("dragstart", dragTask);
     newTask.style = `         
@@ -77,8 +77,11 @@ export default class TaskView {
     }
 
     newTask.innerHTML = `
-    <img src=${pin} alt="Pin" style="width:40px; height:40px; margin-top:8px; margin-right:8px; align-self:center;" draggable="false">
-      <div>
+    <div class="header">
+    <img src=${pin} alt="Pin" style="width:40px; height:40px; margin:auto; align-self:center;" draggable="false">
+    <button>X</button>  
+    </div>
+    <div>
         <h3>${name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
         <p class="desc">${description.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
         <div class="itemList">
@@ -95,8 +98,23 @@ export default class TaskView {
         </div>
         </div>
       `;
-    var todoColumn = document.getElementById("todo");
-    todoColumn.appendChild(newTask);
+    if (taskModel.status == StatusEnum.TODO) {
+      const todoRow = document.getElementById("todo");
+      todoRow.appendChild(newTask);
+    } else if (taskModel.status == StatusEnum.WIP) {
+      const wipRow = document.getElementById("wip");
+      wipRow.appendChild(newTask);
+    } else if (taskModel.status === StatusEnum.DONE) {
+      const doneRow = document.getElementById("done");
+      doneRow.appendChild(newTask);
+    }
+
+    newTask.querySelector("button").addEventListener("click", () => {
+      let id = newTask.id.split("-")[1];
+      localStorage.deleteTask(id);
+      var taskDiv = newTask.querySelector("button").parentElement.parentElement;
+      taskDiv.remove();
+    });
     resetFormToCreateTask();
   }
 }

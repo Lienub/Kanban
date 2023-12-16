@@ -1,3 +1,6 @@
+/** 
+ * Reset the form to create a new task
+*/
 export function resetFormToCreateTask() {
   var containerForm = document.getElementById("create-new-task-form");
   var inputs = containerForm.getElementsByTagName("input");

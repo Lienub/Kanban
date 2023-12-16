@@ -4,13 +4,15 @@ import TaskModel from "../TaskModel";
 
 test("TaskModel create a new task", () => {
   const task = new TaskModel(
+    1,
     "Problème de test",
     "description",
     "01/01/2024",
     "02/01/2024",
     "Romain",
     "feature",
-    "#000000"
+    "#000000",
+    "todo"
   );
   assert.equal(task.name, "Problème de test");
   assert.equal(task.description, "description");
