@@ -115,7 +115,7 @@ export default class TaskController {
         }
       });
       if (draggedTask) {
-        let status = event.target.parentElement.id.toLowerCase();
+        let status = event.target.id;
         this.localStorage.modifyTaskStatus(taskId, status);
       }
       const task = document.getElementById(id);
