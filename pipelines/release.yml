@@ -20,8 +20,6 @@ build:
 
 create:release:
   stage: release
-  needs:
-    - job: deploy-application
   variables:
     TAG: '$CI_COMMIT_SHORT_SHA'
   image: registry.gitlab.com/gitlab-org/release-cli:latest
