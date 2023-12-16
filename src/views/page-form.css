@@ -3,21 +3,14 @@
 */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,600;1,100;1,400&family=Roboto:ital,wght@0,100;0,400;0,700;1,400;1,500;1,700&display=swap');
 
-@font-face {
-    font-family: 'Muffin';
-    src: url('../assets/fonts/muffin/Muffin.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 /**
    ================= BASES ================= H
 */
 :root {
     /* COLORS */
-    --main-bg-color: #d2a56d;
-    --main-bg-color-2: #d2a56dc7;
+    --main-bg-color: #f5f5f5;
+    --main-board-color: #d2a56d;
+    --main-board-color-2: #d2a56dc7;
     --text-color: #000000;
     --text-color-2: #685237c5;
     /* ROW COLORS */
@@ -152,3 +145,7 @@ h1 {
     font-family: var(--main-title-font-family);
 
 }
+
+/**
+   ================= BACKLOG =================
+*/
