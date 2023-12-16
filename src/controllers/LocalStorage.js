@@ -59,4 +59,14 @@ export default class LocalStorage {
     });
     return lastId;
   }
+  /**
+   * this method deletes a task from local storage
+   * 
+   * @param {number} taskId
+   */
+  deleteTask(taskId) {
+    let tasks = this.loadTasks();
+    tasks = tasks.filter((task) => task.id != taskId);
+    this.saveTasks(tasks);
+  }
 }

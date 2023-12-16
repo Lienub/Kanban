@@ -2,7 +2,7 @@ import { resetFormToCreateTask } from "../../utils/resetForm";
 import StatusEnum from "../../models/StatusEnum";
 
 export default class TaskView {
-  static render(taskModel) {
+  static render(taskModel, localStorage) {
     const newTask = document.createElement("div");
     newTask.className = "task";
     newTask.id = `task-${taskModel.id}`;
@@ -19,17 +19,25 @@ export default class TaskView {
         <div style="background: ${
           taskModel.codeColor
         };width:20px; height:20px; border-radius: 100%"></div>
+        <button>X</button>
       `;
-    if(taskModel.status == StatusEnum.TODO) {
+    if (taskModel.status == StatusEnum.TODO) {
       const todoRow = document.getElementById("todo");
       todoRow.appendChild(newTask);
-    } else if(taskModel.status == StatusEnum.WIP) {
+    } else if (taskModel.status == StatusEnum.WIP) {
       const wipRow = document.getElementById("wip");
       wipRow.appendChild(newTask);
-    } else if(taskModel.status === StatusEnum.DONE) {
+    } else if (taskModel.status === StatusEnum.DONE) {
       const doneRow = document.getElementById("done");
       doneRow.appendChild(newTask);
-    } 
+    }
+
+    newTask.querySelector("button").addEventListener("click", () => {
+      let id = newTask.id.split("-")[1];
+      localStorage.deleteTask(id);
+      var taskDiv = newTask.querySelector("button").parentElement;
+      taskDiv.remove();
+    });
     resetFormToCreateTask();
   }
 }

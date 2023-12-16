@@ -58,6 +58,7 @@ export default class TaskController {
     var tagsList = Array.from(tagElement).map((tagElement) =>
       tagElement.textContent.trim()
     );
+    
     var newTaskModel = new TaskModel(
       this.taskIdCounter++,
       taskName,
@@ -93,7 +94,7 @@ export default class TaskController {
       taskData.codeColor,
       taskData.status
     );
-    TaskView.render(taskModel); // render the task in the DOM
+    TaskView.render(taskModel, this.localStorage); // render the task in the DOM
   }
   /**
    * this method adds event listeners for task drag-and-drop
