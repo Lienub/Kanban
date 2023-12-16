@@ -1,0 +1,50 @@
+image: node:latest
+
+stages:
+  - build
+  - release
+  - pages
+
+build:
+  stage: build
+  script:
+    - npm i
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+
+create:release:
+  stage: release
+  variables:
+    TAG: '$CI_COMMIT_SHORT_SHA'
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /merge/i
+      - $CI_COMMIT_REF_NAME =~ /main/i
+  script:
+    - echo "Create Release $TAG"
+    - echo $JOB_ID  
+  release:
+    name: 'Release $TAG'
+    tag_name: '$TAG'
+    ref: '$TAG'
+    description: 'Release $TAG'
+
+pages:
+  stage: pages
+  script:
+    - "npm run build"
+    - mkdir .public
+    - cp -r dist/* .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

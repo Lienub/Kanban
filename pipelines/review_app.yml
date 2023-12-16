@@ -1,22 +1,21 @@
+image: node:18
+
 stages:
   - build
   - deploy
   - pages
 
-variables:
-  VITE_APP_MODE: preview
-
 build:
   stage: build
   script:
     - apt-get update -qy
-    - apt-get install -y nodejs npm
-    - npm install -g yarn
-    - yarn install
-    - yarn build
+    - npm install 
+    - npm run build
   artifacts:
     paths:
       - dist
+  rules:
+    - when: on_success
 
 review_app:
   stage: deploy
@@ -24,6 +23,7 @@ review_app:
     - echo "Deploying Review App..."
     - mkdir -p public
     - cp -r dist/* public/
+    - ls public
   artifacts:
     paths:
       - public
@@ -31,8 +31,8 @@ review_app:
     name: review/$CI_COMMIT_REF_NAME
     url: https://${CI_PROJECT_NAMESPACE}.pages.unistra.fr/-/${CI_PROJECT_NAME}/-/jobs/${CI_JOB_ID}/artifacts/public/index.html
     on_stop: cleanup_review_app
-  only:
-    - merge_requests
+  rules:
+    - when: on_success
 
 cleanup_review_app:
   stage: deploy
@@ -50,7 +50,7 @@ pages:
   script:
     - echo "Deploying to GitLab Pages.."
     - mkdir .public
-    - cp -r * .public
+    - cp -r dist/* .public
     - mv .public public
   artifacts:
     paths:

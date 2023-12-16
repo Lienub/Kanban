@@ -1,0 +1,307 @@
+/*  ====================
+    create-new-task-form
+*/
+#create-new-task-form {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+/*
+ CONTROL BUTTONS
+*/
+
+/* Common styles for control buttons */
+#create-task-button {
+color: white;
+padding: 10px 20px;
+cursor: pointer;
+}
+
+#create-task-button {
+background-color:  #87C159 ;
+}
+
+#create-task-button:hover {
+background-color: #46a049;
+}
+
+
+#close-button {
+    background-color: #f44336;
+    align-self: start;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+}
+
+#close-button > img {
+    filter:invert(1);
+}
+
+#close-button:hover {
+    background-color: #da190b;
+}
+  
+/* Hide the checkbox */
+#toggleForm, #closeForm {
+display: none;
+}
+
+/* =============== */
+
+/* Form title */
+#task-form-header > h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+  
+/* Pop-up style */
+#create-new-task-form {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    min-width: 100%;
+    overflow: auto;
+  }
+
+/* The actual form style */
+#create-new-task-form > div {
+    background-color: white;
+    padding: 10px;
+    width: 30%;
+    height: 50%;
+    border: 5px solid #058240;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: fit-content;
+  }
+
+/* Form header */
+#create-new-task-form > div > #task-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Form header image */
+#create-new-task-form > div > #task-form-header > img {
+    width: 100px;
+    height: 100px;
+}
+  
+  /* Displaying pop-up */
+  #create-new-task-form.show {
+    transition: opacity 500ms;
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+/* Form input fields */
+#create-new-task-form > div > div:not([id]) > *:not(div), 
+#create-new-task-form > div > div:not([id]) > div:not([id]) > *:not(div), 
+#create-new-task-form > div > div:nth-child(4) > div > input {
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    :focus{
+        color: #212529;
+        background-color: #fff;
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+    }
+}
+
+/* Form input fields title, color and dates display */
+#create-new-task-form > div > div:nth-child(2), div:nth-child(4), div:nth-child(5) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 20px 0 0;
+}
+
+#create-new-task-form > div > div:nth-child(5){
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#create-new-task-form > div > div:nth-child(5) > div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: start;
+
+}
+
+/* Form input fields title, color and dates display */
+#create-new-task-form > div > div {
+    margin-bottom: 10px;
+}
+
+#create-new-task-form > div > div > * {
+    margin-bottom: 10px;
+}
+
+#create-new-task-form > div > div:nth-child(4) > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px 0 0;
+}
+
+/* Form description */
+#create-new-task-form > div > div:not([id]) > textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Form buttons */
+#create-new-task-form button {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color:  #87C159 ;
+}
+
+#create-new-task-form button:hover {
+    background-color: #46a049;
+}
+
+#create-new-task-form button > img {
+    filter:invert(1);
+}
+
+/* Assignments block */
+div#assignments-block, div#tags-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div#assignments-block > div, div#tags-block > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #d2a56dc7;
+    margin: 5px;
+    border-radius: 5px;
+    max-width: 250px;
+}
+
+div#assignments-block > div > p, div#tags-block > div > p{
+    margin: 3px;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+
+div#assignments-block > div > button, div#tags-block > div > button {
+    background-color: #f44336;
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+    border-radius: 50%;
+    border: 2px solid #da190b;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+/* 
+    RESPONSIVE AREA 
+*/
+@media screen and (max-width: 600px) {
+    #create-new-task-form > div {
+        width: 80%;
+        min-width: 300px;
+    }
+
+    #create-new-task-form > div > div:not([id]) > textarea {
+        width: 60%;
+    }
+
+    #create-new-task-form > div > div:nth-child(2), div:nth-child(4), div:nth-child(5) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 0 20px 0 0;
+    }
+
+    #create-new-task-form > div > #task-form-header > img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    #create-new-task-form > div {
+        width: 50%;
+        min-width: 400px;
+    }
+
+    #create-new-task-form > div > div:not([id]) > *:not(div),
+    #create-new-task-form > div > div:not([id]) > div:not([id]) > *:not(div),
+    #create-new-task-form > div > div:nth-child(4) > div > input {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    #create-new-task-form > div > div:not([id]) > textarea {
+        width: 75%;
+    }
+
+    #create-new-task-form > div > div:nth-child(2), div:nth-child(4), div:nth-child(5) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 0 20px 0 0;
+    }
+}
+
+/* Desktop styles using media query */
+@media screen and (min-width: 1025px) {
+    #create-new-task-form > div {
+        min-width: 600px;
+    }
+
+    #create-new-task-form > div > div:not([id]) > *:not(div),
+    #create-new-task-form > div > div:not([id]) > div:not([id]) > *:not(div),
+    #create-new-task-form > div > div:nth-child(4) > div > input {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    #create-new-task-form > div > div:not([id]) > textarea {
+        width: 90%;
+    }
+}
+
+/*
+    End create-new-task-form 
+    ========================    */
