@@ -4,8 +4,8 @@
 Projet réalisé dans le cadre du module A52 Qualité de développement, consistant à réaliser une application web de gestion de projet Kanban en HTML/CSS/JS (Vanilla).
 
 ## Documents
-- [Rapport]()
-- [Cahier des charges]()
+- [Rapport](Rapport_-_Projet_A52.pdf)
+- [Cahier des charges](specifications.md)
 
 
 ## Membres du groupe
