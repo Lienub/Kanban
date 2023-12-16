@@ -48,7 +48,10 @@ function addEventListenersForTaskDragAndDrop(element) {
         event.preventDefault();
         const id = event.dataTransfer.getData("id");
         const task = document.getElementById(id);
-        event.target.appendChild(task);
+
+        if (event.target === element) {
+            event.target.appendChild(task);
+        }
     });
 
     element.addEventListener("dragover", (event) => {
