@@ -3,6 +3,12 @@ export default class LocalStorage {
     this.init();
   }
   init() {}
+  /**
+   * this method adds a task in local storage
+   * 
+   * @param {TaskModel} task
+   * @param {TaskModel[]} tasks
+   */
   addTask(task, tasks) {
     tasks = this.loadTasks();
     tasks.push(task);
@@ -11,6 +17,12 @@ export default class LocalStorage {
   saveTasks(tasks) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
+  /**
+   * this method modifies the status of a task in local storage
+   * 
+   * @param {number} taskId
+   * @param {string} status
+   */
   modifyTaskStatus(taskId, status) {
     let tasks = this.loadTasks();
     let task = tasks.find((task) => task.id == taskId);
@@ -19,6 +31,11 @@ export default class LocalStorage {
     tasks.push(task);
     this.saveTasks(tasks);
   }
+  /**
+   * this method loads the tasks from local storage
+   * 
+   * @returns {TaskModel[]}
+   */
   loadTasks() {
     const savedTasks = localStorage.getItem("tasks");
     try {
@@ -26,5 +43,20 @@ export default class LocalStorage {
     } catch (error) {
       return [];
     }
+  }
+  /**
+   * this method returns the last id of the tasks
+   * 
+   * @returns {number}
+   */
+  getLastId() {
+    const tasks = this.loadTasks();
+    let lastId = 0;
+    tasks.forEach((task) => {
+      if (task.id > lastId) {
+        lastId = task.id;
+      }
+    });
+    return lastId;
   }
 }

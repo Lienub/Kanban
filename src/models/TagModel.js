@@ -5,6 +5,11 @@ export default class TagModel {
     this.name = name;
   }
 }
+/** 
+ *  this function creates a new tag
+ *
+ * @param {KeyboardEvent} event 
+ */
 export function createTag(event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -17,7 +22,11 @@ export function createTag(event) {
     TagView.render(newTagModel)
   }
 }
-
+/** 
+ *  this function deletes a tag
+ *
+ * @param {KeyboardEvent} event 
+ */
 export function deleteTag(button) {
   var tagDiv = button.parentElement;
   tagDiv.remove();

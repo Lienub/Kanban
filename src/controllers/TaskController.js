@@ -8,16 +8,18 @@ export default class TaskController {
   constructor() {
     this.init();
     this.tasks = [];
-    this.taskIdCounter = 1;
     this.localStorage = new LocalStorage();
     const tasks = this.localStorage.loadTasks();
+    this.taskIdCounter = this.localStorage.getLastId() + 1;
     tasks.forEach((task) => this.renderTask(task));
   }
 
   init() {
+    // Get all buttons
     const createTaskButton = document.getElementById("create-task-button");
     const closeButton = document.getElementById("close-button");
     const saveButton = document.getElementById("save-button");
+    // Get all rows kanban
     const rows = [
       document.getElementById("todo"),
       document.getElementById("wip"),
@@ -35,7 +37,9 @@ export default class TaskController {
     // Add event listeners for task drag-and-drop
     rows.forEach((row) => this.addEventListenersForTaskDragAndDrop(row));
   }
-
+  /**
+   * this method creates and saves a task
+   */
   createAndSaveTask() {
     var taskName = document.getElementById("task-name").value;
     var taskDescription = document.getElementById("task-description").value;
@@ -68,12 +72,15 @@ export default class TaskController {
 
     this.addTask(newTaskModel);
   }
-
+  /**
+   * this method adds a task in the localStorage and in the tasks array
+   * 
+   * @param {TaskModel} taskModel 
+   */
   addTask(taskModel) {
     this.localStorage.addTask(taskModel, this.tasks);
     this.renderTask(taskModel);
   }
-
   renderTask(taskData) {
     const taskModel = new TaskModel(
       taskData.id,
@@ -86,9 +93,13 @@ export default class TaskController {
       taskData.codeColor,
       taskData.status
     );
-    TaskView.render(taskModel);
+    TaskView.render(taskModel); // render the task in the DOM
   }
-
+  /**
+   * this method adds event listeners for task drag-and-drop
+   * 
+   * @param {HTMLElement} element 
+   */
   addEventListenersForTaskDragAndDrop(element) {
     if (element == null) return;
 

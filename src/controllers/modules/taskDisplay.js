@@ -5,7 +5,6 @@ export function setDisplayForm() {
   const createNewTaskForm = document.getElementById("create-new-task-form");
   const closeButton = document.getElementById("closeForm");
 
-  console.log(toggleFormCheckbox)
   toggleFormCheckbox.addEventListener("change", () => {
     if (toggleFormCheckbox.checked) {
       createNewTaskForm.classList.add("show");
