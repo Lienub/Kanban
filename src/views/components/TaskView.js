@@ -20,11 +20,8 @@ export default class TaskView {
       padding-right:8px;
       background-color: ${taskModel.codeColor};
       box-shadow: 0px 2px 2px 3px #dadada;
-      -webkit-transform:rotate(-4deg);
-      -o-transform:rotate(-4deg);
-      -moz-transform:rotate(-4deg);
-      width:240px;
-      height:240px;
+      width:275px;
+      height:275px;
       color: ${chooseTextColor(taskModel.codeColor)};
     `
 
@@ -37,7 +34,7 @@ export default class TaskView {
 
     let description = taskModel.description
     if (description.length > 100) {
-      description = description.substring(0, 70) + "..."
+      description = description.substring(0, 50) + "..."
     } else if (description.length === 0) {
       description = "Pas de description"
     }
@@ -96,7 +93,10 @@ export default class TaskView {
         <img src=${tagIcon} alt="Tag" style="${filter}" draggable="false">
         <p>${tagList.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
         </div>
-        </div>
+     </div>
+      <div class="footer">
+      <button>Détails</button>
+      </div>
       `;
     if (taskModel.status == StatusEnum.TODO) {
       const todoRow = document.getElementById("todo");
@@ -109,11 +109,29 @@ export default class TaskView {
       doneRow.appendChild(newTask);
     }
 
-    newTask.querySelector("button").addEventListener("click", () => {
+    newTask.querySelector("div.header button").addEventListener("click", () => {
       let id = newTask.id.split("-")[1];
       localStorage.deleteTask(id);
       var taskDiv = newTask.querySelector("button").parentElement.parentElement;
       taskDiv.remove();
+    });
+
+    newTask.querySelector("div.footer button").addEventListener("click", () => {
+      let id = newTask.id.split("-")[1];
+      let task = localStorage.getTaskById(id);
+      let taskDetails = document.getElementById("task-details");
+
+      document.getElementById("task-details-name").innerText = task.name.length > 0 ? "Nom : " + task.name : "Pas de nom";
+      document.getElementById("task-details-description").innerText = task.description.length > 0 ? "Description : " + task.description : "Pas de description";
+      document.getElementById("task-details-start-date").innerText = task.startDate.length > 0 ? "Date de début : " + task.startDate : "Pas de date de début";
+      document.getElementById("task-details-end-date").innerText = task.endDate.length > 0 ? "Date de fin : " + task.endDate : "Pas de date de fin";
+      document.getElementById("task-details-tags").innerText = task.tags.length > 0 ? "Tags : " + task.tags : "Pas de tag";
+      document.getElementById("task-details-assignments").innerText = task.assignments.length > 0 ? "Affectations : " + task.assignments : "Pas d'affectation";
+      document.getElementById("task-details").className = "task-details show";
+
+      taskDetails.querySelector("button").addEventListener("click", () => {
+          document.getElementById("task-details").className = "task-details";
+      });
     });
     resetFormToCreateTask();
   }
