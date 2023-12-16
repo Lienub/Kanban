@@ -1,17 +1,24 @@
-image: ubuntu:latest
+image: node:latest
 
 stages:
   - build
   - test
   - deploy
   - release
-  
+
+before_script:
+  - "npm clean-install"
+
+tests:
+  stage: "test"
+  script:
+    - "npm run lint ."
+    - "npm run test"
+
 review_app:
   stage: deploy
   only:
     - merge_requests
   trigger:
     include: "pipelines/review_app.yml"
-
-
   
