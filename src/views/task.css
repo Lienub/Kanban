@@ -41,7 +41,21 @@ div.task > .header > button {
 }
 
 div.task > div.header > button:hover {
-    background-color: #ff0000;
+    background-color: #b70000;
+}
+
+div.task > div.footer > button {
+    background-color: #87C159;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    color: white;
+    border: none;
+}
+
+div.task > div.footer > button:hover {
+    background-color: #5e8f3c;
 }
 
 div.task > div > h3 {
@@ -65,3 +79,12 @@ p.desc {
     text-wrap: wrap;
     overflow-wrap: break-word;
 }
+
+div.task:nth-child(2n) {
+    transform:rotate(3deg);
+}
+
+div.task:nth-child(3n+1) {
+    transform:rotate(-3deg);
+}
+
