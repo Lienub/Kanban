@@ -69,4 +69,13 @@ export default class LocalStorage {
     tasks = tasks.filter((task) => task.id != taskId);
     this.saveTasks(tasks);
   }
+  /**
+   * this method get task by id
+   * 
+   * @param {number} taskId
+   */
+  getTaskById(taskId) {
+    let tasks = this.loadTasks();
+    return tasks.find((task) => task.id == taskId);
+  }
 }
