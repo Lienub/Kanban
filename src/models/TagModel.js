@@ -8,17 +8,17 @@ export default class TagModel {
 export function createTag(event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    var new_tag_input = document.getElementById("task-tag");
-    var new_tag = new_tag_input.value.trim();
-    new_tag_input.value = "";
+    var newTagInput = document.getElementById("task-tag");
+    var newTag = newTagInput.value.trim();
+    newTagInput.value = "";
 
-    var newTagModel = new TagModel(new_tag);
+    var newTagModel = new TagModel(newTag);
 
     TagView.render(newTagModel)
   }
 }
 
 export function deleteTag(button) {
-  var tag_div = button.parentElement;
-  tag_div.remove();
+  var tagDiv = button.parentElement;
+  tagDiv.remove();
 }

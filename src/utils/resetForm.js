@@ -1,12 +1,12 @@
 export function resetFormToCreateTask() {
-  var container_form = document.getElementById("create-new-task-form");
-  var inputs = container_form.getElementsByTagName("input");
+  var containerForm = document.getElementById("create-new-task-form");
+  var inputs = containerForm.getElementsByTagName("input");
   for (var i = 0; i < inputs.length; i++) {
     inputs[i].value = "";
   }
-  container_form.querySelector("textarea").value = "";
-  var assignments_block = document.getElementById("assignments-block");
-  assignments_block.innerHTML = "";
-  var tags_block = document.getElementById("tags-block");
-  tags_block.innerHTML = "";
+  containerForm.querySelector("textarea").value = "";
+  var assignmentsBlock = document.getElementById("assignments-block");
+  assignmentsBlock.innerHTML = "";
+  var tagsBlock = document.getElementById("tags-block");
+  tagsBlock.innerHTML = "";
 }
