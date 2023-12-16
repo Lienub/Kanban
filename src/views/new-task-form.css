@@ -149,7 +149,7 @@ display: none;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
 
 }
 
@@ -211,10 +211,13 @@ div#assignments-block > div, div#tags-block > div {
     background-color: #d2a56dc7;
     margin: 5px;
     border-radius: 5px;
+    max-width: 250px;
 }
 
 div#assignments-block > div > p, div#tags-block > div > p{
     margin: 3px;
+    overflow-wrap: break-word;
+    overflow: hidden;
 }
 
 div#assignments-block > div > button, div#tags-block > div > button {
