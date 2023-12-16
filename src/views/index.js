@@ -78,9 +78,25 @@ document.querySelector("#app").innerHTML = `
         <button id="save-button">
           <img src=${submitIcon} alt="Submit">
         </button>
-        <div>
       </div>
     </div>
+    <div id="task-details">
+        <div>
+            <div id="task-details-header">
+                <button><img src=${closeIcon} alt="X"></button>
+                <h2>Détails de la tâche</h2>
+            </div>
+            <div id="task-details-body">
+                <p id="task-details-name"></p>
+                <p id="task-details-color"></p>
+                <p id="task-details-description"></p>
+                <p id="task-details-start-date"></p>
+                <p id="task-details-end-date"></p>
+                <p id="task-details-assignments"></p>
+                <p id="task-details-tags"></p>
+            </div>
+        </div>
+    </div>  
   </section>
 </main>
 `;
