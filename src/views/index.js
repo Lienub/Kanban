@@ -5,26 +5,33 @@ import TagController from "../controllers/TagController.js";
 import closeIcon from "../assets/images/close-icon.svg";
 import submitIcon from "../assets/images/submit-icon.svg";
 import cuteCupcake from "../assets/images/cute-cupcake.png";
+import corkTexture from "../assets/images/cork.png";
 
 document.querySelector("#app").innerHTML = `
 <header>
   <h1>Kanban Oueb</h1>
 </header>
-<main>
+<main class="container">
     <div>
     <input type="checkbox" id="toggleForm">
     <label for="toggleForm" id="create-task-button">Créer une tâche</label>
     </div>
-  <section id="todo">
-    <h2>TODO</h2>
-  </section>
-  <section id="wip">
-    <h2>WIP</h2>
-  </section>
-  <section id="done">
-    <h2>DONE</h2>
-  </section>
-  <section>
+    <section id="backlog" class="kanban-container" style="background-image: url(${corkTexture})">
+    <div class="row-kanban-block">
+        <h2>TODO</h2>
+        <div id="todo" class="row-kanban">
+        </div>
+    </div>
+    <div class="row-kanban-block">
+        <h2>WIP</h2>
+        <div id="wip" class="row-kanban">
+        </div>
+    </div>
+    <div class="row-kanban-block">
+        <h2>DONE</h2>
+        <div id="done" class="row-kanban">
+        </div>
+    </div>
     <div id="create-new-task-form">
       <div>
         <div id="task-form-header">
