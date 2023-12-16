@@ -66,6 +66,7 @@ display: none;
     right: 0;
     background: rgba(0, 0, 0, 0.7);
     min-width: 100%;
+    overflow: auto;
   }
 
 /* The actual form style */
@@ -138,6 +139,20 @@ display: none;
     margin: 0 20px 0 0;
 }
 
+#create-new-task-form > div > div:nth-child(5){
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#create-new-task-form > div > div:nth-child(5) > div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
 /* Form input fields title, color and dates display */
 #create-new-task-form > div > div {
     margin-bottom: 10px;
@@ -178,6 +193,39 @@ display: none;
 
 #create-new-task-form button > img {
     filter:invert(1);
+}
+
+/* Assignments block */
+div#assignments-block, div#tags-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div#assignments-block > div, div#tags-block > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #d2a56dc7;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+div#assignments-block > div > p, div#tags-block > div > p{
+    margin: 3px;
+}
+
+div#assignments-block > div > button, div#tags-block > div > button {
+    background-color: #f44336;
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+    border-radius: 50%;
+    border: 2px solid #da190b;
+    cursor: pointer;
+    font-size: 10px;
 }
 
 /* 
@@ -236,7 +284,7 @@ display: none;
 /* Desktop styles using media query */
 @media screen and (min-width: 1025px) {
     #create-new-task-form > div {
-        min-width: 520px;
+        min-width: 600px;
     }
 
     #create-new-task-form > div > div:not([id]) > *:not(div),

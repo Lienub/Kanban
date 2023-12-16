@@ -7,6 +7,8 @@ import submitIcon from "../assets/images/submit-icon.svg";
 import cuteCupcake from "../assets/images/cute-cupcake.png";
 import corkTexture from "../assets/images/cork.png";
 
+import "./muffin-font.css";
+
 document.querySelector("#app").innerHTML = `
 <header>
   <h1>Kanban Oueb</h1>
