@@ -13,7 +13,8 @@ export default {
         input: {
           index: path.resolve(__dirname, "src", "index.html"),
         },
-      },      
+      },  
+      cssCodeSplit: true,    
     },
   
   };
