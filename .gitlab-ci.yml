@@ -6,7 +6,6 @@ stages:
   - deploy
   - release
 
-
 build:
   stage: build
   script:
@@ -34,11 +33,10 @@ tests:
       junit: "coverage/junit.xml"
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
-
 review_app:
   stage: deploy
   only:
     - merge_requests
   trigger:
     include: "pipelines/review_app.yml"
-  
+  when: on_success
