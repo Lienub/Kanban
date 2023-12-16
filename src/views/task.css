@@ -1,0 +1,45 @@
+/* TASK CSS */
+div.task {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+}
+
+div.row-kanban {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex;
+    width: 100%;
+}
+
+div.task > div {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.task > div > h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+div.itemList {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+div.itemList > * {
+    margin: 0 10px;
+}
+
+p.desc {
+    margin-bottom: 15px;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+}
