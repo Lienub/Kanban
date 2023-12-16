@@ -1,11 +1,23 @@
 import { resetFormToCreateTask } from "../../utils/resetForm";
 
 export function setDisplayForm() {
-  var create_new_task_form = document.getElementById("create-new-task-form");
-  if (create_new_task_form.style.display === "none") {
-    create_new_task_form.style.display = "flex";
-  } else {
-    create_new_task_form.style.display = "none";
-  }
+  const toggleFormCheckbox = document.getElementById("toggleForm");
+  const createNewTaskForm = document.getElementById("create-new-task-form");
+  const closeButton = document.getElementById("closeForm");
+
+  console.log(toggleFormCheckbox)
+  toggleFormCheckbox.addEventListener("change", () => {
+    if (toggleFormCheckbox.checked) {
+      createNewTaskForm.classList.add("show");
+      toggleFormCheckbox.checked = false;
+    }
+  });
+  closeButton.addEventListener("change", () => {
+    if (closeButton.checked) {
+      createNewTaskForm.classList.remove("show");
+      resetFormToCreateTask();
+      closeButton.checked = false;
+    }
+  });
   resetFormToCreateTask();
 }

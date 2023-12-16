@@ -7,10 +7,17 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest --reporter=json --outputFile=report.json"
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "devDependencies": {
-    "vite": "^5.0.8",
-    "vitest": "^1.0.4"
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "husky": "^8.0.3",
+    "vite": "^5.0.8"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npx --no -- commitlint --edit $HUSKY_GIT_PARAMS"
+    }
   }
 }
