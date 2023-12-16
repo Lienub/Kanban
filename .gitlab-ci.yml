@@ -40,3 +40,11 @@ review_app:
   trigger:
     include: "pipelines/review_app.yml"
   when: on_success
+
+release:
+  stage: release
+  only:
+    - main
+  trigger:
+    include: "pipelines/release.yml"
+  when: on_success
