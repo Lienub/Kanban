@@ -6,14 +6,33 @@ stages:
   - deploy
   - release
 
-before_script:
-  - "npm clean-install"
+
+build:
+  stage: build
+  script:
+    - npm i
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
 
 tests:
   stage: test
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  dependencies:
+    - build
   script:
-    - "npm run lint ."
-    - "npm run test"
+    - npm run test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - junit.xml
+      cobertura: coverage/cobertura-coverage.xml
 
 review_app:
   stage: deploy
