@@ -22,17 +22,18 @@ build:
 
 tests:
   stage: test
-  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
-  dependencies:
-    - build
   script:
-    - npm run test
+    - "npm run test"
   artifacts:
-    when: always
+    paths:
+      - "coverage/"
     reports:
-      junit:
-        - junit.xml
-      cobertura: coverage/cobertura-coverage.xml
+      coverage_report:
+        coverage_format: "cobertura"
+        path: "coverage/cobertura-coverage.xml"
+      junit: "coverage/junit.xml"
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+
 
 review_app:
   stage: deploy
