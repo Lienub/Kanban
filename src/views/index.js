@@ -48,7 +48,7 @@ document.querySelector("#app").innerHTML = `
           <input type="text" name="task-name" id="task-name" placeholder="Titre">
           <div id="task-form-color">
             <label for="task-name">Code couleur</label>
-            <input type="color" name="task-code-color" id="task-code-color">
+            <input type="color" value="#feff9c" "name="task-code-color" id="task-code-color"/>
           </div>
         </div>
         <div>

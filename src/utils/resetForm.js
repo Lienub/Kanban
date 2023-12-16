@@ -5,6 +5,7 @@ export function resetFormToCreateTask() {
     inputs[i].value = "";
   }
   containerForm.querySelector("textarea").value = "";
+  document.getElementById("task-code-color").value = "#feff9c";
   var assignmentsBlock = document.getElementById("assignments-block");
   assignmentsBlock.innerHTML = "";
   var tagsBlock = document.getElementById("tags-block");
