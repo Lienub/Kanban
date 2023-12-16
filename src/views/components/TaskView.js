@@ -1,4 +1,4 @@
-import { resetFormToCreateTask } from "../utils/resetForm";
+import { resetFormToCreateTask } from "../../utils/resetForm";
 let taskIdCounter = 1;
 
 export default class TaskView {

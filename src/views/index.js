@@ -1,6 +1,6 @@
-import TaskController from "./controllers/TaskController.js";
-import AssignmentController from "./controllers/AssignmentController.js";
-import TagController from "./controllers/TagController.js";
+import TaskController from "../controllers/TaskController.js";
+import AssignmentController from "../controllers/AssignmentController.js";
+import TagController from "../controllers/TagController.js";
 
 
 document.querySelector("#app").innerHTML = `

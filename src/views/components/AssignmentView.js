@@ -1,4 +1,4 @@
-import { deleteAssignment } from "../models/AssignmentModel.js";
+import { deleteAssignment } from "../../models/AssignmentModel.js";
 
 export default class AssignmentView {
   static render(assignmentModel) {

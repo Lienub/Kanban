@@ -1,6 +1,6 @@
 import { createTag } from "../models/TagModel.js";
 import TagModel from "../models/TagModel";
-import TagView from "../views/TagView";
+import TagView from "../views/components/TagView.js";
 
 export default class TagController {
   constructor() {

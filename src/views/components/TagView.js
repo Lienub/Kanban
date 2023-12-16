@@ -1,4 +1,4 @@
-import { deleteTag } from "../models/TagModel.js";
+import { deleteTag } from "../../models/TagModel.js";
 
 export default class TagView {
   static render(tagModel) {

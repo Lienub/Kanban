@@ -1,4 +1,4 @@
-import TagView from "../views/TagView";
+import TagView from "../views/components/TagView";
 
 export default class TagModel {
   constructor(name) {

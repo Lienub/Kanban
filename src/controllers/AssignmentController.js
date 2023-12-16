@@ -1,6 +1,6 @@
 import { createAssignment } from "../models/AssignmentModel.js";
 import AssignmentModel from "../models/AssignmentModel";
-import AssignmentView from "../views/AssignmentView";
+import AssignmentView from "../views/components/AssignmentView.js";
 
 export default class AssignmentController {
   constructor() {

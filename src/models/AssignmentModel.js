@@ -1,4 +1,4 @@
-import AssignmentView from "../views/AssignmentView";
+import AssignmentView from "../views/components/AssignmentView";
 
 export default class AssignmentModel {
   constructor(name) {

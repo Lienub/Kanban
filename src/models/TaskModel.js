@@ -1,5 +1,5 @@
 import { resetFormToCreateTask } from "../utils/resetForm";
-import TaskView from "../views/TaskView";
+import TaskView from "../views/components/TaskView";
 
 export default class TaskModel {
   constructor(

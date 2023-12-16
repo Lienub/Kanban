@@ -1,6 +1,6 @@
 import { createTask } from "../models/TaskModel.js";
 import TaskModel from "../models/TaskModel";
-import TaskView from "../views/TaskView";
+import TaskView from "../views/components/TaskView.js";
 import { setDisplayForm } from "./modules/taskDisplay.js";
 
 export default class TaskController {
