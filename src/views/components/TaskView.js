@@ -20,8 +20,8 @@ export default class TaskView {
           taskModel.codeColor
         };width:20px; height:20px; border-radius: 100%"></div>
       `;
-    var todo_column = document.getElementById("todo");
-    todo_column.appendChild(newTask);
+    var todoColumn = document.getElementById("todo");
+    todoColumn.appendChild(newTask);
     resetFormToCreateTask();
   }
 }
