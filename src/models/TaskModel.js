@@ -54,3 +54,8 @@ export function createTask() {
   TaskView.render(newTaskModel, todoColumn);
   resetFormToCreateTask();
 }
+
+export function deleteTask(button) {
+    var taskDiv = button.parentElement;
+    taskDiv.remove();
+}

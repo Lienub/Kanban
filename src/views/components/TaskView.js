@@ -1,4 +1,5 @@
 import { resetFormToCreateTask } from "../../utils/resetForm";
+import { deleteTask } from "../../models/TaskModel";
 let taskIdCounter = 1;
 
 export default class TaskView {
@@ -19,7 +20,12 @@ export default class TaskView {
         <div style="background: ${
           taskModel.codeColor
         };width:20px; height:20px; border-radius: 100%"></div>
+        <button>X</button>
       `;
+
+    newTask.querySelector("button").addEventListener("click", () => {
+        deleteTask(newTask.querySelector("button"));
+    });
     var todoColumn = document.getElementById("todo");
     todoColumn.appendChild(newTask);
     resetFormToCreateTask();
