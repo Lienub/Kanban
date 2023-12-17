@@ -6,6 +6,7 @@ Projet réalisé dans le cadre du module A52 Qualité de développement, consist
 ## Documents
 - [Rapport](Rapport_-_Projet_A52.pdf)
 - [Cahier des charges](specifications.md)
+- [Démonstration du site](https://kanban-oueb-walter-abid-wawrzyniak-c06b00b84973f1902195f1978292.pages.unistra.fr/)
 
 
 ## Membres du groupe
