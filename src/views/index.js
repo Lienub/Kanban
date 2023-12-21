@@ -45,6 +45,7 @@ document.querySelector("#app").innerHTML = `
           <img src=${cuteCupcake} alt="Cupcake">
         </div>
         <div>
+          <input type="hidden" name="task-id" id="task-id">
           <input type="text" name="task-name" id="task-name" placeholder="Titre">
           <div id="task-form-color">
             <label for="task-name">Code couleur</label>

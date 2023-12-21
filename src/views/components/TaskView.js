@@ -5,6 +5,8 @@ import tagIcon from "../../assets/images/tag.svg";
 import dateIcon from "../../assets/images/calendar.svg";
 import pin from "../../assets/images/cute-cupcake.png";
 import StatusEnum from "../../models/StatusEnum";
+import { deleteTag } from "../../models/TagModel.js";
+import { deleteAssignment } from "../../models/AssignmentModel.js";
 
 export default class TaskView {
   static render(taskModel, localStorage) {
@@ -23,49 +25,49 @@ export default class TaskView {
       width:275px;
       height:275px;
       color: ${chooseTextColor(taskModel.codeColor)};
-    `
+    `;
 
-    let name = taskModel.name
+    let name = taskModel.name;
     if (name.length > 20) {
       name = name.substring(0, 17) + "...";
     } else if (name.length === 0) {
-      name = "Ma tâche"
+      name = "Ma tâche";
     }
 
-    let description = taskModel.description
+    let description = taskModel.description;
     if (description.length > 100) {
-      description = description.substring(0, 50) + "..."
+      description = description.substring(0, 50) + "...";
     } else if (description.length === 0) {
-      description = "Pas de description"
+      description = "Pas de description";
     }
 
-    let date = ""
+    let date = "";
     if (taskModel.startDate === "" && taskModel.endDate === "") {
-      date = "Pas de date"
+      date = "Pas de date";
     } else if (taskModel.startDate === "") {
-      date = `Avant le ${taskModel.endDate}`
+      date = `Avant le ${taskModel.endDate}`;
     } else if (taskModel.endDate === "") {
-      date = `A partir du ${taskModel.startDate}`
+      date = `A partir du ${taskModel.startDate}`;
     } else {
-      date = `Du ${taskModel.startDate} au ${taskModel.endDate}`
+      date = `Du ${taskModel.startDate} au ${taskModel.endDate}`;
     }
 
-    let tagList = ""
+    let tagList = "";
     if (taskModel.tags.length === 0) {
-      tagList = "Pas de tag"
+      tagList = "Pas de tag";
     } else if (taskModel.tags.length === 1) {
-      tagList = taskModel.tags[0].substring(0,10)
+      tagList = taskModel.tags[0].substring(0, 10);
     } else {
-      tagList = taskModel.tags[0].substring(0,10) + ", ..."
+      tagList = taskModel.tags[0].substring(0, 10) + ", ...";
     }
 
-    let assignmentList = ""
+    let assignmentList = "";
     if (taskModel.assignments.length === 0) {
-      assignmentList = "Pas d'assignation"
+      assignmentList = "Pas d'assignation";
     } else if (taskModel.assignments.length === 1) {
-      assignmentList = taskModel.assignments[0].substring(0,10)
+      assignmentList = taskModel.assignments[0].substring(0, 10);
     } else {
-      assignmentList = taskModel.assignments[0].substring(0,10) + ", ..."
+      assignmentList = taskModel.assignments[0].substring(0, 10) + ", ...";
     }
 
     let filter = "filter: invert(0);";
@@ -80,7 +82,9 @@ export default class TaskView {
     </div>
     <div>
         <h3>${name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
-        <p class="desc">${description.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+        <p class="desc">${description
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")}</p>
         <div class="itemList">
         <img src=${dateIcon} alt="Datz" style="${filter}" draggable="false">
         <p>${date}</p>
@@ -95,7 +99,8 @@ export default class TaskView {
         </div>
      </div>
       <div class="footer">
-      <button>Détails</button>
+      <button class="modify">Modifier</button>
+      <button class="detail">Détails</button>
       </div>
       `;
     if (taskModel.status == StatusEnum.TODO) {
@@ -116,23 +121,86 @@ export default class TaskView {
       taskDiv.remove();
     });
 
-    newTask.querySelector("div.footer button").addEventListener("click", () => {
-      let id = newTask.id.split("-")[1];
-      let task = localStorage.getTaskById(id);
-      let taskDetails = document.getElementById("task-details");
+    newTask
+      .querySelector("div.footer button.modify")
+      .addEventListener("click", () => {
+        let id = newTask.id.split("-")[1];
+        let task = localStorage.getTaskById(id);
+        document.getElementById("create-new-task-form").classList.add("show");
+        document.getElementById("task-name").value = task.name;
+        document.getElementById("task-description").value = task.description;
+        document.getElementById("task-start-date").value = task.startDate;
+        document.getElementById("task-end-date").value = task.endDate;
+        document.getElementById("task-code-color").value = task.codeColor;
+        document.getElementById("task-id").value = task.id;
+        // Init tags
+        var tagsBlock = document.getElementById("tags-block");
+        var tagsList = task.tags;
+        tagsBlock.innerHTML = "";
 
-      document.getElementById("task-details-name").innerText = task.name.length > 0 ? "Nom : " + task.name : "Pas de nom";
-      document.getElementById("task-details-description").innerText = task.description.length > 0 ? "Description : " + task.description : "Pas de description";
-      document.getElementById("task-details-start-date").innerText = task.startDate.length > 0 ? "Date de début : " + task.startDate : "Pas de date de début";
-      document.getElementById("task-details-end-date").innerText = task.endDate.length > 0 ? "Date de fin : " + task.endDate : "Pas de date de fin";
-      document.getElementById("task-details-tags").innerText = task.tags.length > 0 ? "Tags : " + task.tags : "Pas de tag";
-      document.getElementById("task-details-assignments").innerText = task.assignments.length > 0 ? "Affectations : " + task.assignments : "Pas d'affectation";
-      document.getElementById("task-details").className = "task-details show";
+        tagsList.forEach(tagName => {
+            var tagDiv = document.createElement("div");
+            tagDiv.innerHTML = `
+                <p>${tagName}</p>
+                <button>X</button>
+            `;
+            tagsBlock.appendChild(tagDiv);
+            tagDiv.querySelector("button").addEventListener("click", () => {
+              deleteTag(tagDiv.querySelector("button"));
+            });
+        });
 
-      taskDetails.querySelector("button").addEventListener("click", () => {
-          document.getElementById("task-details").className = "task-details";
+        // Init assignments
+        var assignmentList = task.assignments;
+        var assignmentsBlock = document.getElementById("assignments-block");
+        assignmentsBlock.innerHTML = "";
+
+        assignmentList.forEach(assignmentName => {
+            var assignmentsDiv = document.createElement("div");
+            assignmentsDiv.innerHTML = `
+                <p>${assignmentName}</p>
+                <button>X</button>
+            `;
+            assignmentsBlock.appendChild(assignmentsDiv);
+            assignmentsDiv.querySelector("button").addEventListener("click", () => {
+              deleteAssignment(assignmentsDiv.querySelector("button"));
+            });
+        });
       });
-    });
+
+    newTask
+      .querySelector("div.footer button.detail")
+      .addEventListener("click", () => {
+        let id = newTask.id.split("-")[1];
+        let task = localStorage.getTaskById(id);
+        let taskDetails = document.getElementById("task-details");
+
+        document.getElementById("task-details-name").innerText =
+          task.name.length > 0 ? "Nom : " + task.name : "Pas de nom";
+        document.getElementById("task-details-description").innerText =
+          task.description.length > 0
+            ? "Description : " + task.description
+            : "Pas de description";
+        document.getElementById("task-details-start-date").innerText =
+          task.startDate.length > 0
+            ? "Date de début : " + task.startDate
+            : "Pas de date de début";
+        document.getElementById("task-details-end-date").innerText =
+          task.endDate.length > 0
+            ? "Date de fin : " + task.endDate
+            : "Pas de date de fin";
+        document.getElementById("task-details-tags").innerText =
+          task.tags.length > 0 ? "Tags : " + task.tags : "Pas de tag";
+        document.getElementById("task-details-assignments").innerText =
+          task.assignments.length > 0
+            ? "Affectations : " + task.assignments
+            : "Pas d'affectation";
+        document.getElementById("task-details").className = "task-details show";
+
+        taskDetails.querySelector("button").addEventListener("click", () => {
+          document.getElementById("task-details").className = "task-details";
+        });
+      });
     resetFormToCreateTask();
   }
 }
