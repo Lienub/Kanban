@@ -192,6 +192,10 @@ export default class TaskView {
           task.endDate.length > 0
             ? "Date de fin : " + task.endDate
             : "Pas de date de fin";
+            document.getElementById("task-details-complete-date").innerText =
+          task.completeDate.length > 0
+            ? " Date de fin effective : " + task.completeDate
+            : "";
         document.getElementById("task-details-tags").innerText =
           task.tags.length > 0 ? "Tags : " + task.tags : "Pas de tag";
         document.getElementById("task-details-assignments").innerText =
