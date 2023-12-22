@@ -118,6 +118,7 @@ export default class TaskController {
     var taskStatus = taskDiv.parentElement.id;
     // Delete old task
     taskDiv.remove();
+    let taskNotes = document.getElementById('task-details-note').value
 
     var newTaskModel = new TaskModel(
       taskId,
@@ -133,7 +134,7 @@ export default class TaskController {
         : taskStatus == "wip"
           ? StatusEnum.WIP
           : StatusEnum.DONE,
-      taskNote
+      taskNotes
     );
     this.modifyTask(newTaskModel);
   }
