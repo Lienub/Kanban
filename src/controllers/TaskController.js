@@ -146,6 +146,7 @@ export default class TaskController {
    * @param {string} taskNote
    */
   addNoteToTask(taskId, taskNote) {
+    console.log(taskNote);
     this.localStorage.addNoteToTask(taskId, taskNote);
     this.renderTask(taskId);    
   }
