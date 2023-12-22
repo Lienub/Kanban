@@ -20,7 +20,7 @@
 
 #export-btn {
     border: none;
-    background: #d2a56dc7;
+    background: #9a6135;
     padding: 10px 20px;
     border-radius: 10px;
     color: #fff;
@@ -29,7 +29,7 @@
 }
 
 #export-btn:hover {
-    background: #b4835c;
+    background: #7a4a25;
 }
 
 #import-btn {
