@@ -4,6 +4,7 @@ import assignmentIcon from "../../assets/images/assignment.svg";
 import tagIcon from "../../assets/images/tag.svg";
 import dateIcon from "../../assets/images/calendar.svg";
 import pin from "../../assets/images/cute-cupcake.png";
+import pinEat from "../../assets/images/cute-cupcake-sad.png";
 import StatusEnum from "../../models/StatusEnum";
 import { deleteTag } from "../../models/TagModel.js";
 import { deleteAssignment } from "../../models/AssignmentModel.js";
@@ -74,10 +75,12 @@ export default class TaskView {
     if (chooseTextColor(taskModel.codeColor) === "white") {
       filter = "filter: invert(1);";
     }
+    const endDatePassed = new Date(taskModel.endDate) < new Date();
+    const pinImage = endDatePassed ? pinEat : pin;
 
     newTask.innerHTML = `
     <div class="header">
-    <img src=${pin} alt="Pin" style="width:40px; height:40px; margin:auto; align-self:center;" draggable="false">
+    <img src=${pinImage} alt="Pin" style="width:40px; height:40px; margin:auto; align-self:center;" draggable="false">
     <button>X</button>  
     </div>
     <div>
