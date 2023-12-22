@@ -19,6 +19,7 @@ export default class TaskController {
     const createTaskButton = document.getElementById("create-task-button");
     const closeButton = document.getElementById("close-button");
     const saveButton = document.getElementById("save-button");
+    const saveNoteButton = document.getElementById("task-details-note-button");
     // Get all rows kanban
     const rows = [
       document.getElementById("todo"),
@@ -36,6 +37,16 @@ export default class TaskController {
         );
       } else {
         this.createAndSaveTask();
+      }
+      setDisplayForm();
+    });
+
+    saveNoteButton.addEventListener("click", () => {
+      if (document.getElementById("task-id").value != "") {
+        this.addNoteToTask(
+          Number(document.getElementById("task-id").value),
+          document.getElementById("task-details-note").value
+        );
       }
       setDisplayForm();
     });
@@ -121,9 +132,22 @@ export default class TaskController {
         ? StatusEnum.TODO
         : taskStatus == "wip"
           ? StatusEnum.WIP
-          : StatusEnum.DONE
+          : StatusEnum.DONE,
+      taskNote
     );
     this.modifyTask(newTaskModel);
+  }
+
+  /**
+   * this method adds a note in the taks details and in the localStorage
+   * 
+   * @param {number} taskId
+   * @param {string} taskNote
+   */
+  addNoteToTask(taskId, taskNote) {
+    console.log(taskNote);
+    this.localStorage.addNoteToTask(taskId, taskNote);
+    this.renderTask(taskId);    
   }
   /**
    * this method adds a task in the localStorage and in the tasks array
@@ -140,6 +164,7 @@ export default class TaskController {
    * @param {TaskModel} taskModel
    */
   modifyTask(taskModel) {
+    console.log(taskModel.note);
     this.localStorage.modifyTask(taskModel);
     this.renderTask(taskModel);
   }
@@ -153,7 +178,8 @@ export default class TaskController {
       taskData.assignments,
       taskData.tags,
       taskData.codeColor,
-      taskData.status
+      taskData.status,
+      taskData.note,
     );
     TaskView.render(taskModel, this.localStorage); // render the task in the DOM
   }

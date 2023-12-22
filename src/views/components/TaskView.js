@@ -174,6 +174,9 @@ export default class TaskView {
         let id = newTask.id.split("-")[1];
         let task = localStorage.getTaskById(id);
         let taskDetails = document.getElementById("task-details");
+        document.getElementById("task-id").value = task.id;
+        document.getElementById("task-details-note").value = task.note;
+        
 
         document.getElementById("task-details-name").innerText =
           task.name.length > 0 ? "Nom : " + task.name : "Pas de nom";
