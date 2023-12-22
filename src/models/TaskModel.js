@@ -10,7 +10,8 @@ export default class TaskModel {
     assignments,
     tags,
     codeColor,
-    status = StatusEnum.TODO
+    status = StatusEnum.TODO,
+    note = "",
   ) {
     this.id = id;
     this.name = name;
@@ -21,5 +22,6 @@ export default class TaskModel {
     this.tags = tags;
     this.codeColor = codeColor;
     this.status = status
+    this.note = note;
   }
 }

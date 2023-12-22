@@ -1,0 +1,62 @@
+#import-export-container {
+    margin: 2rem auto;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+#uploadForm, #downloadForm {
+    margin: 0 auto;
+    text-align: center;
+    padding: 1rem;
+}
+
+#uploadForm h4, #downloadForm h4 {
+    text-align: center;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #666;
+    margin-bottom: 0.5em;
+}
+
+#export-btn {
+    border: none;
+    background: #d2a56dc7;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+#export-btn:hover {
+    background: #b4835c;
+}
+
+#import-btn {
+    border: none;
+    background: #9a6135;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+#import-btn:hover {
+    background: #7a4a25;
+}
+
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #9a6135;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+    background: #7a4a25;
+}

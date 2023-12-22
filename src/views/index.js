@@ -1,6 +1,7 @@
 import TaskController from "../controllers/TaskController.js";
 import AssignmentController from "../controllers/AssignmentController.js";
 import TagController from "../controllers/TagController.js";
+import ExportImportController from "../controllers/ExportImportController.js";
 
 import closeIcon from "../assets/images/close-icon.svg";
 import submitIcon from "../assets/images/submit-icon.svg";
@@ -15,8 +16,20 @@ document.querySelector("#app").innerHTML = `
 </header>
 <main class="container">
     <div>
-    <input type="checkbox" id="toggleForm">
-    <label for="toggleForm" id="create-task-button">Créer une tâche</label>
+        <input type="checkbox" id="toggleForm">
+        <label for="toggleForm" id="create-task-button">Créer une tâche</label>
+    </div>
+    <div id="import-export-container">
+        <form id="uploadForm">
+            <h4>Importer les données (JSON)</h4>
+            <input type="file" id="fileInput" name="fileInput" accept=".json">
+            <button type="button" id="import-btn">Upload</button>
+        </form>
+        <hr/>
+        <form id="downloadForm">
+            <h4>Exporter les données (JSON)</h4>
+            <button type="button" id="export-btn">Exporter</button>
+        </form>
     </div>
     <section id="backlog" class="kanban-container" style="background-image: url(${corkTexture})">
     <div class="row-kanban-block">
@@ -45,10 +58,11 @@ document.querySelector("#app").innerHTML = `
           <img src=${cuteCupcake} alt="Cupcake">
         </div>
         <div>
+          <input type="hidden" name="task-id" id="task-id">
           <input type="text" name="task-name" id="task-name" placeholder="Titre">
           <div id="task-form-color">
             <label for="task-name">Code couleur</label>
-            <input type="color" value="#feff9c" "name="task-code-color" id="task-code-color"/>
+            <input type="color" value="#feff9c" name="task-code-color" id="task-code-color"/>
           </div>
         </div>
         <div>
@@ -94,6 +108,8 @@ document.querySelector("#app").innerHTML = `
                 <p id="task-details-end-date"></p>
                 <p id="task-details-assignments"></p>
                 <p id="task-details-tags"></p>
+                <input type="text" name="task-details-note" id="task-details-note" placeholder="Note...">
+                <button id="task-details-note-button">Ajouter une note</button>
             </div>
         </div>
     </div>  
@@ -104,3 +120,4 @@ document.querySelector("#app").innerHTML = `
 new TaskController();
 new AssignmentController();
 new TagController();
+new ExportImportController();

@@ -5,12 +5,12 @@ export default class LocalStorage {
   init() {}
   /**
    * this method adds a task in local storage
-   * 
+   *
    * @param {TaskModel} task
    * @param {TaskModel[]} tasks
    */
-  addTask(task, tasks) {
-    tasks = this.loadTasks();
+  addTask(task) {
+    let tasks = this.loadTasks();
     tasks.push(task);
     this.saveTasks(tasks);
   }
@@ -19,7 +19,7 @@ export default class LocalStorage {
   }
   /**
    * this method modifies the status of a task in local storage
-   * 
+   *
    * @param {number} taskId
    * @param {string} status
    */
@@ -33,7 +33,7 @@ export default class LocalStorage {
   }
   /**
    * this method loads the tasks from local storage
-   * 
+   *
    * @returns {TaskModel[]}
    */
   loadTasks() {
@@ -46,7 +46,7 @@ export default class LocalStorage {
   }
   /**
    * this method returns the last id of the tasks
-   * 
+   *
    * @returns {number}
    */
   getLastId() {
@@ -61,7 +61,7 @@ export default class LocalStorage {
   }
   /**
    * this method deletes a task from local storage
-   * 
+   *
    * @param {number} taskId
    */
   deleteTask(taskId) {
@@ -71,11 +71,42 @@ export default class LocalStorage {
   }
   /**
    * this method get task by id
-   * 
+   *
    * @param {number} taskId
    */
   getTaskById(taskId) {
     let tasks = this.loadTasks();
     return tasks.find((task) => task.id == taskId);
+  }
+  getJsonData() {
+    return localStorage.getItem("tasks");
+  }
+  setJsonData(data) {
+    localStorage.setItem("tasks", data);
+  }
+  /**
+   * this method modifies a task
+   * 
+   * @param {TaskModel} task
+   */
+  modifyTask(task) {
+    this.deleteTask(task.id);
+    this.addTask(task);
+  }
+
+  /**
+   * this method adds a note to a task
+   * 
+   * @param {number} taskId
+   * @param {string} taskNote
+   */
+  addNoteToTask(taskId, taskNote) {
+    let tasks = this.loadTasks();
+    let task = tasks.find((task) => task.id == taskId);
+    console.log(taskId);
+    task.note = taskNote;
+    tasks.splice(tasks.indexOf(task), 1);
+    tasks.push(task);
+    this.saveTasks(tasks);
   }
 }
