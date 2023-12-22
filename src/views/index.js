@@ -1,6 +1,7 @@
 import TaskController from "../controllers/TaskController.js";
 import AssignmentController from "../controllers/AssignmentController.js";
 import TagController from "../controllers/TagController.js";
+import ExportImportController from "../controllers/ExportImportController.js";
 
 import closeIcon from "../assets/images/close-icon.svg";
 import submitIcon from "../assets/images/submit-icon.svg";
@@ -17,6 +18,14 @@ document.querySelector("#app").innerHTML = `
     <div>
     <input type="checkbox" id="toggleForm">
     <label for="toggleForm" id="create-task-button">Créer une tâche</label>
+    <button id="export-btn">Exporter</button>
+    </div>
+    <div> <br><br>
+    <form id="uploadForm">
+        <label for="fileInput">Importer les données</label>
+        <input type="file" id="fileInput" name="fileInput" accept=".json">
+        <button type="button" id="import-btn">Upload</button>
+    </form>
     </div>
     <section id="backlog" class="kanban-container" style="background-image: url(${corkTexture})">
     <div class="row-kanban-block">
@@ -104,3 +113,4 @@ document.querySelector("#app").innerHTML = `
 new TaskController();
 new AssignmentController();
 new TagController();
+new ExportImportController();
