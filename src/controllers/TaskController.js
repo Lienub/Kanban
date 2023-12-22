@@ -42,12 +42,22 @@ export default class TaskController {
     });
 
     saveNoteButton.addEventListener("click", () => {
+      const successMessage = document.createElement("p");
+      successMessage.textContent = "Notes sauvegardées !";
+      successMessage.style.color = "green";
+      document.getElementById("task-details-body").appendChild(successMessage);
+      console.log(successMessage);
+      setTimeout(() => {
+        successMessage.remove();
+      }, 3000);
+
       if (document.getElementById("task-id").value != "") {
         this.addNoteToTask(
           Number(document.getElementById("task-id").value),
           document.getElementById("task-details-note").value
         );
       }
+      
       setDisplayForm();
     });
 
@@ -148,7 +158,6 @@ export default class TaskController {
    * @param {string} taskNote
    */
   addNoteToTask(taskId, taskNote) {
-    console.log(taskNote);
     this.localStorage.addNoteToTask(taskId, taskNote);
     this.renderTask(taskId);    
   }
