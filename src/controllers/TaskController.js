@@ -82,6 +82,7 @@ export default class TaskController {
       taskDescription,
       taskStartDate,
       taskEndDate,
+      "",
       assignmentsList,
       tagsList,
       taskCodeColor,
@@ -126,6 +127,7 @@ export default class TaskController {
       taskDescription,
       taskStartDate,
       taskEndDate,
+      "",
       assignmentsList,
       tagsList,
       taskCodeColor,
@@ -176,6 +178,7 @@ export default class TaskController {
       taskData.description,
       taskData.startDate,
       taskData.endDate,
+      taskData.completDate,
       taskData.assignments,
       taskData.tags,
       taskData.codeColor,
@@ -204,6 +207,11 @@ export default class TaskController {
       });
       if (draggedTask) {
         let status = event.target.id;
+        let completDate = "";
+        if(status == "done") {
+          completDate = this.getCurrentDate();
+        }
+        this.localStorage.modifyCompleteDate(taskId, completDate);
         this.localStorage.modifyTaskStatus(taskId, status);
       }
       const task = document.getElementById(id);
@@ -215,5 +223,15 @@ export default class TaskController {
     element.addEventListener("dragover", (event) => {
       event.preventDefault();
     });
+  }
+  getCurrentDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
+
+    // Format the date as YYYY-MM-DD
+    var formattedDate = year + '-' + month + '-' + day;
+    return formattedDate;
   }
 }

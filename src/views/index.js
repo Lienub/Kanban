@@ -111,6 +111,7 @@ document.querySelector("#app").innerHTML = `
                 <p id="task-details-description"></p>
                 <p id="task-details-start-date"></p>
                 <p id="task-details-end-date"></p>
+                <p id="task-details-complete-date"></p>
                 <p id="task-details-assignments"></p>
                 <p id="task-details-tags"></p>
                 <textarea name="task-details-note" id="task-details-note" resize="none" cols="50" rows="10" placeholder="Note..."></textarea>
