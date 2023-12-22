@@ -9,8 +9,8 @@ export default class LocalStorage {
    * @param {TaskModel} task
    * @param {TaskModel[]} tasks
    */
-  addTask(task, tasks) {
-    tasks = this.loadTasks();
+  addTask(task) {
+    let tasks = this.loadTasks();
     tasks.push(task);
     this.saveTasks(tasks);
   }
@@ -77,5 +77,14 @@ export default class LocalStorage {
   getTaskById(taskId) {
     let tasks = this.loadTasks();
     return tasks.find((task) => task.id == taskId);
+  }
+  /**
+   * this method modifies a task
+   * 
+   * @param {TaskModel} task
+   */
+  modifyTask(task) {
+    this.deleteTask(task.id);
+    this.addTask(task);
   }
 }
