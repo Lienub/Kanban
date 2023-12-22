@@ -93,4 +93,20 @@ export default class LocalStorage {
     this.deleteTask(task.id);
     this.addTask(task);
   }
+
+  /**
+   * this method adds a note to a task
+   * 
+   * @param {number} taskId
+   * @param {string} taskNote
+   */
+  addNoteToTask(taskId, taskNote) {
+    let tasks = this.loadTasks();
+    let task = tasks.find((task) => task.id == taskId);
+    console.log(taskId);
+    task.note = taskNote;
+    tasks.splice(tasks.indexOf(task), 1);
+    tasks.push(task);
+    this.saveTasks(tasks);
+  }
 }
