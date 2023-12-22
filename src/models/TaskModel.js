@@ -7,6 +7,7 @@ export default class TaskModel {
     description,
     startDate,
     endDate,
+    completeDate,
     assignments,
     tags,
     codeColor,
@@ -18,6 +19,8 @@ export default class TaskModel {
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.endDate = endDate;
+    this.completeDate = completeDate;
     this.assignments = assignments;
     this.tags = tags;
     this.codeColor = codeColor;
