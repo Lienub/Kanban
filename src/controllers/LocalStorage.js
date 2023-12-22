@@ -31,20 +31,6 @@ export default class LocalStorage {
     tasks.push(task);
     this.saveTasks(tasks);
   }
-    /**
-   * this method modifies the complete date of a task in local storage
-   *
-   * @param {number} taskId
-   * @param {string} completeDate
-   */
-    modifyCompleteDate(taskId, completeDate) {
-      let tasks = this.loadTasks();
-      let task = tasks.find((task) => task.id == taskId);
-      task.completeDate = completeDate;
-      tasks.splice(tasks.indexOf(task), 1);
-      tasks.push(task);
-      this.saveTasks(tasks);
-    }
   /**
    * this method loads the tasks from local storage
    *

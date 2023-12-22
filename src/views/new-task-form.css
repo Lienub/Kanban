@@ -60,8 +60,6 @@ display: none;
   
 /* Pop-up style */
 #create-new-task-form {
-    opacity: 0;
-    visibility: hidden;
     position: fixed;
     top: 0;
     bottom: 0;
