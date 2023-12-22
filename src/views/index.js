@@ -108,6 +108,8 @@ document.querySelector("#app").innerHTML = `
                 <p id="task-details-end-date"></p>
                 <p id="task-details-assignments"></p>
                 <p id="task-details-tags"></p>
+                <input type="text" name="task-details-note" id="task-details-note" placeholder="Note...">
+                <button id="task-details-note-button">Ajouter une note</button>
             </div>
         </div>
     </div>  

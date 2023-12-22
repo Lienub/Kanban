@@ -12,7 +12,8 @@ test("TaskModel create a new task", () => {
     "Romain",
     "feature",
     "#000000",
-    "todo"
+    "todo",
+    "note"
   );
   assert.equal(task.name, "Problème de test");
   assert.equal(task.description, "description");
@@ -21,4 +22,6 @@ test("TaskModel create a new task", () => {
   assert.equal(task.assignments, "Romain");
   assert.equal(task.tags, "feature");
   assert.equal(task.codeColor, "#000000");
+  assert.equal(task.status, "todo");
+  assert.equal(task.note, "note");
 });
