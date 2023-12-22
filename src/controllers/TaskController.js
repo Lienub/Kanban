@@ -118,7 +118,6 @@ export default class TaskController {
     var taskStatus = taskDiv.parentElement.id;
     // Delete old task
     taskDiv.remove();
-    let taskNote = document.getElementById('task-details-note').value
 
     var newTaskModel = new TaskModel(
       taskId,
@@ -146,6 +145,7 @@ export default class TaskController {
    * @param {string} taskNote
    */
   addNoteToTask(taskId, taskNote) {
+    console.log(taskNote);
     this.localStorage.addNoteToTask(taskId, taskNote);
     this.renderTask(taskId);    
   }
