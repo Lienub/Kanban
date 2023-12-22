@@ -12,7 +12,13 @@ import "./muffin-font.css";
 
 document.querySelector("#app").innerHTML = `
 <header>
-  <h1>Yummy Kanban</h1>
+  <div>
+   <h1>Yummy Kanban</h1>
+   <div>
+        <input type="checkbox" id="toggleForm">
+        <label for="toggleForm" id="create-task-button">Créer une tâche</label>
+    </div>
+  </div>
   <div>
     <div id="import-export-container">
           <form id="uploadForm">
@@ -26,14 +32,11 @@ document.querySelector("#app").innerHTML = `
               <button type="button" id="export-btn">Exporter</button>
           </form>
       </div>
-      <div>
-        <input type="checkbox" id="toggleForm">
-        <label for="toggleForm" id="create-task-button">Créer une tâche</label>
-      </div>
     </div>
 </header>
 <main class="container">
-    <section id="backlog" class="kanban-container" style="background-image: url(${corkTexture})">
+    <section id="backlog" class="kanban-container"
+    style="background: url(${corkTexture}) center/cover fixed;">
     <div class="row-kanban-block">
         <h2>TODO</h2>
         <div id="todo" class="row-kanban">

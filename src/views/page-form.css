@@ -10,8 +10,15 @@ header {
     margin-bottom: 25px;
 }
 
-header> h1 {
+header>:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-right: 10px;
+}
+
+header>:nth-child(1)>div {
+    margin-top: 15px;
 }
 
 /**
