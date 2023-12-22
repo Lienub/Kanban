@@ -22,8 +22,8 @@ export default class TaskView {
       padding-right:8px;
       background-color: ${taskModel.codeColor};
       box-shadow: 0px 2px 2px 3px #dadada;
-      width:275px;
-      height:275px;
+      width:230px;
+      height:255px;
       color: ${chooseTextColor(taskModel.codeColor)};
     `;
 
@@ -77,11 +77,11 @@ export default class TaskView {
 
     newTask.innerHTML = `
     <div class="header">
-    <img src=${pin} alt="Pin" style="width:40px; height:40px; margin:auto; align-self:center;" draggable="false">
-    <button>X</button>  
+        <img src=${pin} alt="Pin" style="width:40px; height:40px; margin:auto; draggable="false">
+        <h3>${name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
+        <button>X</button>  
     </div>
     <div>
-        <h3>${name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
         <p class="desc">${description
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;")}</p>
@@ -99,8 +99,8 @@ export default class TaskView {
         </div>
      </div>
       <div class="footer">
-      <button class="modify">Modifier</button>
-      <button class="detail">Détails</button>
+      <button class="modify" style="color: ${chooseTextColor(taskModel.codeColor)}">Modifier</button>
+      <button class="detail" style="color: ${chooseTextColor(taskModel.codeColor)}">Détails</button>
       </div>
       `;
     if (taskModel.status == StatusEnum.TODO) {
