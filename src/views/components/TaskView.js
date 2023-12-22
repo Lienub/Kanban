@@ -4,6 +4,7 @@ import assignmentIcon from "../../assets/images/assignment.svg";
 import tagIcon from "../../assets/images/tag.svg";
 import dateIcon from "../../assets/images/calendar.svg";
 import pin from "../../assets/images/cute-cupcake.png";
+import pinEat from "../../assets/images/cute-cupcake-sad.png";
 import StatusEnum from "../../models/StatusEnum";
 import { deleteTag } from "../../models/TagModel.js";
 import { deleteAssignment } from "../../models/AssignmentModel.js";
@@ -74,12 +75,14 @@ export default class TaskView {
     if (chooseTextColor(taskModel.codeColor) === "white") {
       filter = "filter: invert(1);";
     }
+    const endDatePassed = new Date(taskModel.endDate) < new Date();
+    const pinImage = endDatePassed ? pinEat : pin;
 
     newTask.innerHTML = `
     <div class="header">
-        <img src=${pin} alt="Pin" style="width:40px; height:40px; margin:auto; draggable="false">
-        <h3>${name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
-        <button>X</button>  
+    <img src=${pinImage} alt="Pin" style="width:40px; height:40px; margin:auto; align-self:center;" draggable="false">
+    <h3>${name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
+    <button>X</button>  
     </div>
     <div>
         <p class="desc">${description
@@ -192,6 +195,10 @@ export default class TaskView {
           task.endDate.length > 0
             ? "Date de fin : " + task.endDate
             : "Pas de date de fin";
+            document.getElementById("task-details-complete-date").innerText =
+          task.completeDate.length > 0
+            ? " Date de fin effective : " + task.completeDate
+            : "";
         document.getElementById("task-details-tags").innerText =
           task.tags.length > 0 ? "Tags : " + task.tags : "Pas de tag";
         document.getElementById("task-details-assignments").innerText =
