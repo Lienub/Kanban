@@ -16,16 +16,20 @@ document.querySelector("#app").innerHTML = `
 </header>
 <main class="container">
     <div>
-    <input type="checkbox" id="toggleForm">
-    <label for="toggleForm" id="create-task-button">Créer une tâche</label>
-    <button id="export-btn">Exporter</button>
+        <input type="checkbox" id="toggleForm">
+        <label for="toggleForm" id="create-task-button">Créer une tâche</label>
     </div>
-    <div> <br><br>
-    <form id="uploadForm">
-        <label for="fileInput">Importer les données</label>
-        <input type="file" id="fileInput" name="fileInput" accept=".json">
-        <button type="button" id="import-btn">Upload</button>
-    </form>
+    <div id="import-export-container">
+        <form id="uploadForm">
+            <h4>Importer les données (JSON)</h4>
+            <input type="file" id="fileInput" name="fileInput" accept=".json">
+            <button type="button" id="import-btn">Upload</button>
+        </form>
+        <hr/>
+        <form id="downloadForm">
+            <h4>Exporter les données (JSON)</h4>
+            <button type="button" id="export-btn">Exporter</button>
+        </form>
     </div>
     <section id="backlog" class="kanban-container" style="background-image: url(${corkTexture})">
     <div class="row-kanban-block">
@@ -57,7 +61,7 @@ document.querySelector("#app").innerHTML = `
           <input type="text" name="task-name" id="task-name" placeholder="Titre">
           <div id="task-form-color">
             <label for="task-name">Code couleur</label>
-            <input type="color" value="#feff9c" "name="task-code-color" id="task-code-color"/>
+            <input type="color" value="#feff9c" name="task-code-color" id="task-code-color"/>
           </div>
         </div>
         <div>
