@@ -30,7 +30,13 @@ export default class TaskController {
     createTaskButton.addEventListener("click", () => setDisplayForm());
     closeButton.addEventListener("click", () => setDisplayForm());
     saveButton.addEventListener("click", () => {
-      this.createAndSaveTask();
+      if (document.getElementById("task-id").value != "") {
+        this.modifyAndSaveTask(
+          Number(document.getElementById("task-id").value)
+        );
+      } else {
+        this.createAndSaveTask();
+      }
       setDisplayForm();
     });
 
@@ -58,7 +64,7 @@ export default class TaskController {
     var tagsList = Array.from(tagElement).map((tagElement) =>
       tagElement.textContent.trim()
     );
-    
+
     var newTaskModel = new TaskModel(
       this.taskIdCounter++,
       taskName,
@@ -74,12 +80,67 @@ export default class TaskController {
     this.addTask(newTaskModel);
   }
   /**
+   * this method modifies and saves a task
+   *
+   * @param {number} taskId
+   */
+  modifyAndSaveTask(taskId) {
+    var taskName = document.getElementById("task-name").value;
+    var taskDescription = document.getElementById("task-description").value;
+    var taskStartDate = document.getElementById("task-start-date").value;
+    var taskEndDate = document.getElementById("task-end-date").value;
+    // Get all assignments
+    var assignmentsBlock = document.getElementById("assignments-block");
+    var assignmentElement = assignmentsBlock.querySelectorAll("p");
+    var assignmentsList = Array.from(assignmentElement).map(
+      (assignmentElement) => assignmentElement.textContent.trim()
+    );
+    var taskCodeColor = document.getElementById("task-code-color").value;
+    // Get all tags
+    var tagsBlock = document.getElementById("tags-block");
+    var tagElement = tagsBlock.querySelectorAll("p");
+    var tagsList = Array.from(tagElement).map((tagElement) =>
+      tagElement.textContent.trim()
+    );
+    var taskDiv = document.getElementById(`task-${taskId}`);
+    // Get row status of the task
+    var taskStatus = taskDiv.parentElement.id;
+    // Delete old task
+    taskDiv.remove();
+
+    var newTaskModel = new TaskModel(
+      taskId,
+      taskName,
+      taskDescription,
+      taskStartDate,
+      taskEndDate,
+      assignmentsList,
+      tagsList,
+      taskCodeColor,
+      taskStatus == "todo"
+        ? StatusEnum.TODO
+        : taskStatus == "wip"
+          ? StatusEnum.WIP
+          : StatusEnum.DONE
+    );
+    this.modifyTask(newTaskModel);
+  }
+  /**
    * this method adds a task in the localStorage and in the tasks array
-   * 
-   * @param {TaskModel} taskModel 
+   *
+   * @param {TaskModel} taskModel
    */
   addTask(taskModel) {
-    this.localStorage.addTask(taskModel, this.tasks);
+    this.localStorage.addTask(taskModel);
+    this.renderTask(taskModel);
+  }
+  /**
+   * this method modifies a task in the localStorage and in the tasks array
+   *
+   * @param {TaskModel} taskModel
+   */
+  modifyTask(taskModel) {
+    this.localStorage.modifyTask(taskModel);
     this.renderTask(taskModel);
   }
   renderTask(taskData) {
@@ -98,8 +159,8 @@ export default class TaskController {
   }
   /**
    * this method adds event listeners for task drag-and-drop
-   * 
-   * @param {HTMLElement} element 
+   *
+   * @param {HTMLElement} element
    */
   addEventListenersForTaskDragAndDrop(element) {
     if (element == null) return;
@@ -110,7 +171,7 @@ export default class TaskController {
       const tasks = this.localStorage.loadTasks();
       let taskId = id.split("-")[1];
       const draggedTask = tasks.find((task) => {
-        if(task.id == taskId) {
+        if (task.id == taskId) {
           return task;
         }
       });

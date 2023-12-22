@@ -4,6 +4,11 @@ export function setDisplayForm() {
   const toggleFormCheckbox = document.getElementById("toggleForm");
   const createNewTaskForm = document.getElementById("create-new-task-form");
   const closeButton = document.getElementById("closeForm");
+  const saveButton = document.getElementById("save-button");
+  saveButton.addEventListener("click", () => {
+    createNewTaskForm.classList.remove("show");
+    resetFormToCreateTask();
+  });
 
   toggleFormCheckbox.addEventListener("change", () => {
     if (toggleFormCheckbox.checked) {
