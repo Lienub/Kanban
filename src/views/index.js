@@ -36,7 +36,7 @@ document.querySelector("#app").innerHTML = `
 </header>
 <main class="container">
     <section id="backlog" class="kanban-container"
-    style="background: url(${corkTexture}) center/cover fixed;">
+    style="background: url(${corkTexture}) local;">
     <div class="row-kanban-block">
         <h2>TODO</h2>
         <div id="todo" class="row-kanban">
