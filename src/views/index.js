@@ -12,26 +12,31 @@ import "./muffin-font.css";
 
 document.querySelector("#app").innerHTML = `
 <header>
-  <h1>Kanban Oueb</h1>
-</header>
-<main class="container">
-    <div>
+  <div>
+   <h1>Yummy Kanban</h1>
+   <div>
         <input type="checkbox" id="toggleForm">
         <label for="toggleForm" id="create-task-button">Créer une tâche</label>
     </div>
+  </div>
+  <div>
     <div id="import-export-container">
-        <form id="uploadForm">
-            <h4>Importer les données (JSON)</h4>
-            <input type="file" id="fileInput" name="fileInput" accept=".json">
-            <button type="button" id="import-btn">Upload</button>
-        </form>
-        <hr/>
-        <form id="downloadForm">
-            <h4>Exporter les données (JSON)</h4>
-            <button type="button" id="export-btn">Exporter</button>
-        </form>
+          <form id="uploadForm">
+              <h4>Importer les données (JSON)</h4>
+              <input type="file" id="fileInput" name="fileInput" accept=".json">
+              <button type="button" id="import-btn">Upload</button>
+          </form>
+          <hr/>
+          <form id="downloadForm">
+              <h4>Exporter les données (JSON)</h4>
+              <button type="button" id="export-btn">Exporter</button>
+          </form>
+      </div>
     </div>
-    <section id="backlog" class="kanban-container" style="background-image: url(${corkTexture})">
+</header>
+<main class="container">
+    <section id="backlog" class="kanban-container"
+    style="background: url(${corkTexture}) local;">
     <div class="row-kanban-block">
         <h2>TODO</h2>
         <div id="todo" class="row-kanban">
@@ -109,7 +114,7 @@ document.querySelector("#app").innerHTML = `
                 <p id="task-details-complete-date"></p>
                 <p id="task-details-assignments"></p>
                 <p id="task-details-tags"></p>
-                <input type="text" name="task-details-note" id="task-details-note" placeholder="Note...">
+                <textarea name="task-details-note" id="task-details-note" resize="none" cols="50" rows="10" placeholder="Note..."></textarea>
                 <button id="task-details-note-button">Ajouter une note</button>
             </div>
         </div>
