@@ -114,6 +114,8 @@ document.querySelector("#app").innerHTML = `
                 <p id="task-details-complete-date"></p>
                 <p id="task-details-assignments"></p>
                 <p id="task-details-tags"></p>
+                <p id="task-work-days"></p>
+                <p id="task-business-days"></p>
                 <textarea name="task-details-note" id="task-details-note" resize="none" cols="50" rows="10" placeholder="Note..."></textarea>
                 <button id="task-details-note-button">Ajouter une note</button>
             </div>

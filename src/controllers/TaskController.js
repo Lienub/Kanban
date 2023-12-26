@@ -3,6 +3,7 @@ import LocalStorage from "./LocalStorage.js";
 import TaskView from "../views/components/TaskView.js";
 import { setDisplayForm } from "./modules/taskDisplay.js";
 import StatusEnum from "../models/StatusEnum.js";
+import { calculateBusinessDays, calculateWorkDays, getCurrentDate } from "../utils/dateUtils.js";
 
 export default class TaskController {
   constructor() {
@@ -11,7 +12,13 @@ export default class TaskController {
     this.localStorage = new LocalStorage();
     const tasks = this.localStorage.loadTasks();
     this.taskIdCounter = this.localStorage.getLastId() + 1;
-    tasks.forEach((task) => this.renderTask(task));
+    tasks.forEach((task) => {
+      // Calculate work days and business days
+      task.workDaysCount = calculateWorkDays(task.startDate, task.endDate);
+      task.businessDaysCount = calculateBusinessDays(task.startDate, task.endDate);
+      this.localStorage.modifyTask(task);
+      TaskView.displayTask(task, this.localStorage)
+    });
   }
 
   init() {
@@ -46,7 +53,6 @@ export default class TaskController {
       successMessage.textContent = "Notes sauvegardées !";
       successMessage.style.color = "green";
       document.getElementById("task-details-body").appendChild(successMessage);
-      console.log(successMessage);
       setTimeout(() => {
         successMessage.remove();
       }, 3000);
@@ -85,6 +91,8 @@ export default class TaskController {
     var tagsList = Array.from(tagElement).map((tagElement) =>
       tagElement.textContent.trim()
     );
+    var workDaysCount = calculateWorkDays(taskStartDate, taskEndDate);
+    var businessDaysCount = calculateBusinessDays(taskStartDate, taskEndDate);
 
     var newTaskModel = new TaskModel(
       this.taskIdCounter++,
@@ -96,7 +104,10 @@ export default class TaskController {
       assignmentsList,
       tagsList,
       taskCodeColor,
-      StatusEnum.TODO
+      StatusEnum.TODO,
+      "",
+      workDaysCount,
+      businessDaysCount
     );
 
     this.addTask(newTaskModel);
@@ -130,6 +141,8 @@ export default class TaskController {
     // Delete old task
     taskDiv.remove();
     let taskNotes = document.getElementById('task-details-note').value
+    var workDaysCount = calculateWorkDays(taskStartDate, taskEndDate);
+    var businessDaysCount = calculateBusinessDays(taskStartDate, taskEndDate);
 
     var newTaskModel = new TaskModel(
       taskId,
@@ -146,7 +159,9 @@ export default class TaskController {
         : taskStatus == "wip"
           ? StatusEnum.WIP
           : StatusEnum.DONE,
-      taskNotes
+      taskNotes,
+      workDaysCount,
+      businessDaysCount
     );
     this.modifyTask(newTaskModel);
   }
@@ -159,7 +174,7 @@ export default class TaskController {
    */
   addNoteToTask(taskId, taskNote) {
     this.localStorage.addNoteToTask(taskId, taskNote);
-    this.renderTask(taskId);    
+    TaskView.displayTask(taskId, this.localStorage);
   }
   /**
    * this method adds a task in the localStorage and in the tasks array
@@ -168,7 +183,7 @@ export default class TaskController {
    */
   addTask(taskModel) {
     this.localStorage.addTask(taskModel);
-    this.renderTask(taskModel);
+    TaskView.displayTask(taskModel, this.localStorage);
   }
   /**
    * this method modifies a task in the localStorage and in the tasks array
@@ -176,25 +191,8 @@ export default class TaskController {
    * @param {TaskModel} taskModel
    */
   modifyTask(taskModel) {
-    console.log(taskModel.note);
     this.localStorage.modifyTask(taskModel);
-    this.renderTask(taskModel);
-  }
-  renderTask(taskData) {
-    const taskModel = new TaskModel(
-      taskData.id,
-      taskData.name,
-      taskData.description,
-      taskData.startDate,
-      taskData.endDate,
-      taskData.completDate,
-      taskData.assignments,
-      taskData.tags,
-      taskData.codeColor,
-      taskData.status,
-      taskData.note,
-    );
-    TaskView.render(taskModel, this.localStorage); // render the task in the DOM
+    TaskView.displayTask(taskModel, this.localStorage);
   }
   /**
    * this method adds event listeners for task drag-and-drop
@@ -218,7 +216,7 @@ export default class TaskController {
         let status = event.target.id;
         let completDate = "";
         if(status == "done") {
-          completDate = this.getCurrentDate();
+          completDate = getCurrentDate();
         }
         this.localStorage.modifyCompleteDate(taskId, completDate);
         this.localStorage.modifyTaskStatus(taskId, status);
@@ -232,15 +230,5 @@ export default class TaskController {
     element.addEventListener("dragover", (event) => {
       event.preventDefault();
     });
-  }
-  getCurrentDate() {
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
-
-    // Format the date as YYYY-MM-DD
-    var formattedDate = year + '-' + month + '-' + day;
-    return formattedDate;
   }
 }

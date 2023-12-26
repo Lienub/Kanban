@@ -117,7 +117,6 @@ export default class LocalStorage {
   addNoteToTask(taskId, taskNote) {
     let tasks = this.loadTasks();
     let task = tasks.find((task) => task.id == taskId);
-    console.log(taskId);
     task.note = taskNote;
     tasks.splice(tasks.indexOf(task), 1);
     tasks.push(task);
