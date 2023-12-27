@@ -216,6 +216,23 @@ export default class TaskView {
             ? "Affectations : " + task.assignments
             : "Pas d'affectation";
         document.getElementById("task-details").className = "task-details show";
+        // task details dependencies
+        var dependenciesList = task.dependencies;
+        var dependenciesBlock = document.getElementById(
+          "task-details-dependencies"
+        );
+        dependenciesBlock.innerHTML = "";
+        var title = document.createElement("h4");
+        title.innerHTML = "Dépend de :";
+        dependenciesBlock.appendChild(title);
+        dependenciesList.forEach((dependecyId) => {
+          var dependencyDiv = document.createElement("div");
+          var dependencyTask = localStorage.getTaskById(dependecyId);
+          dependencyDiv.innerHTML = `
+                <p>-> ${dependencyTask.name}</p>
+            `;
+          dependenciesBlock.appendChild(dependencyDiv);
+        });
 
         taskDetails.querySelector("button").addEventListener("click", () => {
           document.getElementById("task-details").className = "task-details";
