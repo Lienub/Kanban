@@ -8,6 +8,8 @@ import pinEat from "../../assets/images/cute-cupcake-sad.png";
 import StatusEnum from "../../models/StatusEnum";
 import { deleteTag } from "../../models/TagModel.js";
 import { deleteAssignment } from "../../models/AssignmentModel.js";
+import { populateDependencyOptions } from "../../controllers/modules/taskDisplay";
+import { refreshAllDependencies } from "../../utils/dependencyUtils.js";
 
 export default class TaskView {
   static render(taskModel, localStorage) {
@@ -102,8 +104,12 @@ export default class TaskView {
         </div>
      </div>
       <div class="footer">
-      <button class="modify" style="color: ${chooseTextColor(taskModel.codeColor)}">Modifier</button>
-      <button class="detail" style="color: ${chooseTextColor(taskModel.codeColor)}">Détails</button>
+      <button class="modify" style="color: ${chooseTextColor(
+        taskModel.codeColor
+      )}">Modifier</button>
+      <button class="detail" style="color: ${chooseTextColor(
+        taskModel.codeColor
+      )}">Détails</button>
       </div>
       `;
     if (taskModel.status == StatusEnum.TODO) {
@@ -119,7 +125,9 @@ export default class TaskView {
 
     newTask.querySelector("div.header button").addEventListener("click", () => {
       let id = newTask.id.split("-")[1];
+      localStorage.updateDependencies(id);
       localStorage.deleteTask(id);
+      refreshAllDependencies();
       var taskDiv = newTask.querySelector("button").parentElement.parentElement;
       taskDiv.remove();
     });
@@ -136,21 +144,22 @@ export default class TaskView {
         document.getElementById("task-end-date").value = task.endDate;
         document.getElementById("task-code-color").value = task.codeColor;
         document.getElementById("task-id").value = task.id;
+        populateDependencyOptions(id);
         // Init tags
         var tagsBlock = document.getElementById("tags-block");
         var tagsList = task.tags;
         tagsBlock.innerHTML = "";
 
-        tagsList.forEach(tagName => {
-            var tagDiv = document.createElement("div");
-            tagDiv.innerHTML = `
+        tagsList.forEach((tagName) => {
+          var tagDiv = document.createElement("div");
+          tagDiv.innerHTML = `
                 <p>${tagName}</p>
                 <button>X</button>
             `;
-            tagsBlock.appendChild(tagDiv);
-            tagDiv.querySelector("button").addEventListener("click", () => {
-              deleteTag(tagDiv.querySelector("button"));
-            });
+          tagsBlock.appendChild(tagDiv);
+          tagDiv.querySelector("button").addEventListener("click", () => {
+            deleteTag(tagDiv.querySelector("button"));
+          });
         });
 
         // Init assignments
@@ -158,14 +167,16 @@ export default class TaskView {
         var assignmentsBlock = document.getElementById("assignments-block");
         assignmentsBlock.innerHTML = "";
 
-        assignmentList.forEach(assignmentName => {
-            var assignmentsDiv = document.createElement("div");
-            assignmentsDiv.innerHTML = `
+        assignmentList.forEach((assignmentName) => {
+          var assignmentsDiv = document.createElement("div");
+          assignmentsDiv.innerHTML = `
                 <p>${assignmentName}</p>
                 <button>X</button>
             `;
-            assignmentsBlock.appendChild(assignmentsDiv);
-            assignmentsDiv.querySelector("button").addEventListener("click", () => {
+          assignmentsBlock.appendChild(assignmentsDiv);
+          assignmentsDiv
+            .querySelector("button")
+            .addEventListener("click", () => {
               deleteAssignment(assignmentsDiv.querySelector("button"));
             });
         });
@@ -179,7 +190,6 @@ export default class TaskView {
         let taskDetails = document.getElementById("task-details");
         document.getElementById("task-id").value = task.id;
         document.getElementById("task-details-note").value = task.note;
-        
 
         document.getElementById("task-details-name").innerText =
           task.name.length > 0 ? "Nom : " + task.name : "Pas de nom";
@@ -195,7 +205,7 @@ export default class TaskView {
           task.endDate.length > 0
             ? "Date de fin : " + task.endDate
             : "Pas de date de fin";
-            document.getElementById("task-details-complete-date").innerText =
+        document.getElementById("task-details-complete-date").innerText =
           task.completeDate.length > 0
             ? " Date de fin effective : " + task.completeDate
             : "";
