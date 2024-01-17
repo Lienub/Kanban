@@ -12,10 +12,10 @@ import { populateDependencyOptions } from "../../controllers/modules/taskDisplay
 import { refreshAllDependencies } from "../../utils/dependencyUtils.js";
 
 export default class TaskView {
-  static render(taskModel, localStorage) {
+  static displayTask(task, localStorage) {
     const newTask = document.createElement("div");
     newTask.className = "task";
-    newTask.id = `task-${taskModel.id}`;
+    newTask.id = `task-${task.id}`;
     newTask.draggable = true;
     newTask.addEventListener("dragstart", dragTask);
     newTask.style = `         
@@ -23,21 +23,21 @@ export default class TaskView {
       padding-bottom:16px;
       padding-left:8px;
       padding-right:8px;
-      background-color: ${taskModel.codeColor};
+      background-color: ${task.codeColor};
       box-shadow: 0px 2px 2px 3px #dadada;
       width:230px;
       height:255px;
-      color: ${chooseTextColor(taskModel.codeColor)};
+      color: ${chooseTextColor(task.codeColor)};
     `;
 
-    let name = taskModel.name;
+    let name = task.name;
     if (name.length > 20) {
       name = name.substring(0, 17) + "...";
     } else if (name.length === 0) {
       name = "Ma tâche";
     }
 
-    let description = taskModel.description;
+    let description = task.description;
     if (description.length > 100) {
       description = description.substring(0, 50) + "...";
     } else if (description.length === 0) {
@@ -45,39 +45,39 @@ export default class TaskView {
     }
 
     let date = "";
-    if (taskModel.startDate === "" && taskModel.endDate === "") {
+    if (task.startDate === "" && task.endDate === "") {
       date = "Pas de date";
-    } else if (taskModel.startDate === "") {
-      date = `Avant le ${taskModel.endDate}`;
-    } else if (taskModel.endDate === "") {
-      date = `A partir du ${taskModel.startDate}`;
+    } else if (task.startDate === "") {
+      date = `Avant le ${task.endDate}`;
+    } else if (task.endDate === "") {
+      date = `A partir du ${task.startDate}`;
     } else {
-      date = `Du ${taskModel.startDate} au ${taskModel.endDate}`;
+      date = `Du ${task.startDate} au ${task.endDate}`;
     }
 
     let tagList = "";
-    if (taskModel.tags.length === 0) {
+    if (task.tags.length === 0) {
       tagList = "Pas de tag";
-    } else if (taskModel.tags.length === 1) {
-      tagList = taskModel.tags[0].substring(0, 10);
+    } else if (task.tags.length === 1) {
+      tagList = task.tags[0].substring(0, 10);
     } else {
-      tagList = taskModel.tags[0].substring(0, 10) + ", ...";
+      tagList = task.tags[0].substring(0, 10) + ", ...";
     }
 
     let assignmentList = "";
-    if (taskModel.assignments.length === 0) {
+    if (task.assignments.length === 0) {
       assignmentList = "Pas d'assignation";
-    } else if (taskModel.assignments.length === 1) {
-      assignmentList = taskModel.assignments[0].substring(0, 10);
+    } else if (task.assignments.length === 1) {
+      assignmentList = task.assignments[0].substring(0, 10);
     } else {
-      assignmentList = taskModel.assignments[0].substring(0, 10) + ", ...";
+      assignmentList = task.assignments[0].substring(0, 10) + ", ...";
     }
 
     let filter = "filter: invert(0);";
-    if (chooseTextColor(taskModel.codeColor) === "white") {
+    if (chooseTextColor(task.codeColor) === "white") {
       filter = "filter: invert(1);";
     }
-    const endDatePassed = new Date(taskModel.endDate) < new Date();
+    const endDatePassed = new Date(task.endDate) < new Date();
     const pinImage = endDatePassed ? pinEat : pin;
 
     newTask.innerHTML = `
@@ -105,20 +105,20 @@ export default class TaskView {
      </div>
       <div class="footer">
       <button class="modify" style="color: ${chooseTextColor(
-        taskModel.codeColor
+        task.codeColor
       )}">Modifier</button>
       <button class="detail" style="color: ${chooseTextColor(
-        taskModel.codeColor
+        task.codeColor
       )}">Détails</button>
       </div>
       `;
-    if (taskModel.status == StatusEnum.TODO) {
+    if (task.status == StatusEnum.TODO) {
       const todoRow = document.getElementById("todo");
       todoRow.appendChild(newTask);
-    } else if (taskModel.status == StatusEnum.WIP) {
+    } else if (task.status == StatusEnum.WIP) {
       const wipRow = document.getElementById("wip");
       wipRow.appendChild(newTask);
-    } else if (taskModel.status === StatusEnum.DONE) {
+    } else if (task.status === StatusEnum.DONE) {
       const doneRow = document.getElementById("done");
       doneRow.appendChild(newTask);
     }
@@ -181,40 +181,43 @@ export default class TaskView {
             });
         });
       });
-
+    
     newTask
       .querySelector("div.footer button.detail")
       .addEventListener("click", () => {
         let id = newTask.id.split("-")[1];
         let task = localStorage.getTaskById(id);
         let taskDetails = document.getElementById("task-details");
+
         document.getElementById("task-id").value = task.id;
         document.getElementById("task-details-note").value = task.note;
 
         document.getElementById("task-details-name").innerText =
-          task.name.length > 0 ? "Nom : " + task.name : "Pas de nom";
+          task.name.length > 0 ? "Nom : " + task.name : "";
         document.getElementById("task-details-description").innerText =
           task.description.length > 0
             ? "Description : " + task.description
-            : "Pas de description";
+            : "";
         document.getElementById("task-details-start-date").innerText =
           task.startDate.length > 0
             ? "Date de début : " + task.startDate
-            : "Pas de date de début";
+            : "";
         document.getElementById("task-details-end-date").innerText =
           task.endDate.length > 0
             ? "Date de fin : " + task.endDate
-            : "Pas de date de fin";
-        document.getElementById("task-details-complete-date").innerText =
+            : "";
+            document.getElementById("task-details-complete-date").innerText =
           task.completeDate.length > 0
             ? " Date de fin effective : " + task.completeDate
             : "";
         document.getElementById("task-details-tags").innerText =
-          task.tags.length > 0 ? "Tags : " + task.tags : "Pas de tag";
+          task.tags.length > 0 ? "Tags : " + task.tags : "";
         document.getElementById("task-details-assignments").innerText =
           task.assignments.length > 0
             ? "Affectations : " + task.assignments
-            : "Pas d'affectation";
+            : "";
+        document.getElementById("task-work-days").innerText = `Jours ouvrés restants : ${task.workDaysCount}`;
+        document.getElementById("task-business-days").innerText = `Jours ouvrables restants : ${task.businessDaysCount}`;
         document.getElementById("task-details").className = "task-details show";
         // task details dependencies
         var dependenciesList = task.dependencies;

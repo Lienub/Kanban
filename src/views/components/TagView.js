@@ -1,7 +1,7 @@
 import { deleteTag } from "../../models/TagModel.js";
 
 export default class TagView {
-  static render(tagModel) {
+  static displayTag(tagModel) {
 
     var tagsBlock = document.getElementById("tags-block");
 
