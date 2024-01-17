@@ -13,4 +13,5 @@ export function resetFormToCreateTask() {
   assignmentsBlock.innerHTML = "";
   var tagsBlock = document.getElementById("tags-block");
   tagsBlock.innerHTML = "";
+  document.getElementById("task-dependencies").innerHTML = '';
 }

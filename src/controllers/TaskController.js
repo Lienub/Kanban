@@ -3,6 +3,7 @@ import LocalStorage from "./LocalStorage.js";
 import TaskView from "../views/components/TaskView.js";
 import { setDisplayForm } from "./modules/taskDisplay.js";
 import StatusEnum from "../models/StatusEnum.js";
+import { refreshAllDependencies } from "../utils/dependencyUtils.js";
 
 export default class TaskController {
   constructor() {
@@ -12,6 +13,7 @@ export default class TaskController {
     const tasks = this.localStorage.loadTasks();
     this.taskIdCounter = this.localStorage.getLastId() + 1;
     tasks.forEach((task) => this.renderTask(task));
+    refreshAllDependencies();
   }
 
   init() {
@@ -46,7 +48,6 @@ export default class TaskController {
       successMessage.textContent = "Notes sauvegardées !";
       successMessage.style.color = "green";
       document.getElementById("task-details-body").appendChild(successMessage);
-      console.log(successMessage);
       setTimeout(() => {
         successMessage.remove();
       }, 3000);
@@ -57,7 +58,7 @@ export default class TaskController {
           document.getElementById("task-details-note").value
         );
       }
-      
+
       setDisplayForm();
     });
 
@@ -85,7 +86,7 @@ export default class TaskController {
     var tagsList = Array.from(tagElement).map((tagElement) =>
       tagElement.textContent.trim()
     );
-
+    let dependencies = this.getTaskDependencies();
     var newTaskModel = new TaskModel(
       this.taskIdCounter++,
       taskName,
@@ -96,10 +97,12 @@ export default class TaskController {
       assignmentsList,
       tagsList,
       taskCodeColor,
-      StatusEnum.TODO
+      StatusEnum.TODO,
+      "",
+      dependencies
     );
-
     this.addTask(newTaskModel);
+    refreshAllDependencies();
   }
   /**
    * this method modifies and saves a task
@@ -129,7 +132,8 @@ export default class TaskController {
     var taskStatus = taskDiv.parentElement.id;
     // Delete old task
     taskDiv.remove();
-    let taskNotes = document.getElementById('task-details-note').value
+    let taskNotes = document.getElementById("task-details-note").value;
+    let dependencies = this.getTaskDependencies();
 
     var newTaskModel = new TaskModel(
       taskId,
@@ -146,20 +150,22 @@ export default class TaskController {
         : taskStatus == "wip"
           ? StatusEnum.WIP
           : StatusEnum.DONE,
-      taskNotes
+      taskNotes,
+      dependencies
     );
     this.modifyTask(newTaskModel);
+    refreshAllDependencies();
   }
 
   /**
    * this method adds a note in the taks details and in the localStorage
-   * 
+   *
    * @param {number} taskId
    * @param {string} taskNote
    */
   addNoteToTask(taskId, taskNote) {
     this.localStorage.addNoteToTask(taskId, taskNote);
-    this.renderTask(taskId);    
+    this.renderTask(taskId);
   }
   /**
    * this method adds a task in the localStorage and in the tasks array
@@ -176,7 +182,6 @@ export default class TaskController {
    * @param {TaskModel} taskModel
    */
   modifyTask(taskModel) {
-    console.log(taskModel.note);
     this.localStorage.modifyTask(taskModel);
     this.renderTask(taskModel);
   }
@@ -192,7 +197,7 @@ export default class TaskController {
       taskData.tags,
       taskData.codeColor,
       taskData.status,
-      taskData.note,
+      taskData.note
     );
     TaskView.render(taskModel, this.localStorage); // render the task in the DOM
   }
@@ -209,23 +214,21 @@ export default class TaskController {
       const id = event.dataTransfer.getData("id");
       const tasks = this.localStorage.loadTasks();
       let taskId = id.split("-")[1];
-      const draggedTask = tasks.find((task) => {
-        if (task.id == taskId) {
-          return task;
-        }
-      });
+      const draggedTask = tasks.find((task) => task.id == taskId);
+
       if (draggedTask) {
         let status = event.target.id;
-        let completDate = "";
-        if(status == "done") {
-          completDate = this.getCurrentDate();
-        }
+        let completDate = status === "done" ? this.getCurrentDate() : "";
         this.localStorage.modifyCompleteDate(taskId, completDate);
         this.localStorage.modifyTaskStatus(taskId, status);
       }
+
       const task = document.getElementById(id);
       if (event.target === element) {
+        // Move the task
         event.target.appendChild(task);
+
+        refreshAllDependencies();
       }
     });
 
@@ -233,14 +236,29 @@ export default class TaskController {
       event.preventDefault();
     });
   }
+
   getCurrentDate() {
     var today = new Date();
     var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
+    var month = ("0" + (today.getMonth() + 1)).slice(-2);
+    var day = ("0" + today.getDate()).slice(-2);
 
     // Format the date as YYYY-MM-DD
-    var formattedDate = year + '-' + month + '-' + day;
+    var formattedDate = year + "-" + month + "-" + day;
     return formattedDate;
+  }
+  /**
+   * This function allows you to get all dependencies in
+   * multipl selector
+   *
+   */
+  getTaskDependencies() {
+    const dependencyInput =
+      document.getElementById("task-dependencies").selectedOptions;
+    var dependencies = Array.from(dependencyInput).map(({ value }) => value);
+    dependencies = dependencies.filter((element) => {
+      return element !== null;
+    });
+    return dependencies;
   }
 }

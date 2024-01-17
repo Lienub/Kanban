@@ -30,20 +30,20 @@ export default class ExportImportController {
     document.body.removeChild(element);
   }
   importJsonFile() {
-    const input = document.getElementById('fileInput');
+    const input = document.getElementById("fileInput");
     const file = input.files[0];
 
     if (file) {
-        const reader = new FileReader();
-        reader.onload =  (e) => {
-            const content = e.target.result;
-            this.localStorage.setJsonData(content);
-            window.location.reload()
-        };
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        this.localStorage.setJsonData(content);
+        window.location.reload();
+      };
 
-        reader.readAsText(file);
+      reader.readAsText(file);
     } else {
-        alert('Veuillez sélectionner un fichier.');
+      alert("Veuillez sélectionner un fichier.");
     }
   }
 }
