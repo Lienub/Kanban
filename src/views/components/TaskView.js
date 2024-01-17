@@ -127,9 +127,9 @@ export default class TaskView {
       let id = newTask.id.split("-")[1];
       localStorage.updateDependencies(id);
       localStorage.deleteTask(id);
-      refreshAllDependencies();
       var taskDiv = newTask.querySelector("button").parentElement.parentElement;
       taskDiv.remove();
+      refreshAllDependencies();
     });
 
     newTask
@@ -224,15 +224,17 @@ export default class TaskView {
         dependenciesBlock.innerHTML = "";
         var title = document.createElement("h4");
         title.innerHTML = "Dépend de :";
-        dependenciesBlock.appendChild(title);
-        dependenciesList.forEach((dependecyId) => {
-          var dependencyDiv = document.createElement("div");
-          var dependencyTask = localStorage.getTaskById(dependecyId);
-          dependencyDiv.innerHTML = `
+        if (dependenciesList.length > 0) {
+          dependenciesBlock.appendChild(title);
+          dependenciesList.forEach((dependecyId) => {
+            var dependencyDiv = document.createElement("div");
+            var dependencyTask = localStorage.getTaskById(dependecyId);
+            dependencyDiv.innerHTML = `
                 <p>-> ${dependencyTask.name}</p>
             `;
-          dependenciesBlock.appendChild(dependencyDiv);
-        });
+            dependenciesBlock.appendChild(dependencyDiv);
+          });
+        }
 
         taskDetails.querySelector("button").addEventListener("click", () => {
           document.getElementById("task-details").className = "task-details";

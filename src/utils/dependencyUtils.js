@@ -65,7 +65,7 @@ function connect(div1, div2, thickness) {
 
   // Create the HTML string for the arrow with images at both ends
   var htmlLine = `
-      <div id="${dependencyId}" style='padding:0px; margin:0px; height:${thickness}px; background-color:#DA8DA9; line-height:1px; position:absolute; left:${cx}px; top:${cy}px; width:${length}px; -moz-transform:rotate(${angle}deg); -webkit-transform:rotate(${angle}deg); -o-transform:rotate(${angle}deg); -ms-transform:rotate(${angle}deg); transform:rotate(${angle}deg);'>
+      <div id="${dependencyId}" style='padding:0px; margin:0px; height:${thickness}px; background-color:#a14868; border: white 1px solid; line-height:1px; position:absolute; left:${cx}px; top:${cy}px; width:${length}px; -moz-transform:rotate(${angle}deg); -webkit-transform:rotate(${angle}deg); -o-transform:rotate(${angle}deg); -ms-transform:rotate(${angle}deg); transform:rotate(${angle}deg);'>
         <img src="${cupcakeImg}" width="50" alt="Start Arrowhead" style='position: absolute; top: -20px; left: -10px;'>
       </div>`;
 
