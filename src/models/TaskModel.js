@@ -13,6 +13,9 @@ export default class TaskModel {
     codeColor,
     status = StatusEnum.TODO,
     note = "",
+    workDaysCount = 0,
+    businessDaysCount = 0,
+    dependencies = []
   ) {
     this.id = id;
     this.name = name;
@@ -26,5 +29,8 @@ export default class TaskModel {
     this.codeColor = codeColor;
     this.status = status
     this.note = note;
+    this.workDaysCount = workDaysCount;
+    this.businessDaysCount = businessDaysCount;
+    this.dependencies = dependencies;
   }
 }

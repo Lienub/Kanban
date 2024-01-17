@@ -52,6 +52,7 @@ document.querySelector("#app").innerHTML = `
         <div id="done" class="row-kanban">
         </div>
     </div>
+    <div id="dependency-container"></div>
     <div id="create-new-task-form">
       <div>
         <div id="task-form-header">
@@ -94,6 +95,9 @@ document.querySelector("#app").innerHTML = `
             <div id="tags-block"></div>
           </div>
         </div>
+          <label for="task-dependencies">Dépendances :</label>
+          <select id="task-dependencies" multiple>
+          </select>
         <button id="save-button">
           <img src=${submitIcon} alt="Submit">
         </button>
@@ -114,6 +118,9 @@ document.querySelector("#app").innerHTML = `
                 <p id="task-details-complete-date"></p>
                 <p id="task-details-assignments"></p>
                 <p id="task-details-tags"></p>
+                <p id="task-work-days"></p>
+                <p id="task-business-days"></p>
+                <p id="task-details-dependencies"></p>
                 <textarea name="task-details-note" id="task-details-note" resize="none" cols="50" rows="10" placeholder="Note..."></textarea>
                 <button id="task-details-note-button">Ajouter une note</button>
             </div>

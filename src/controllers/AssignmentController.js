@@ -9,7 +9,13 @@ export default class AssignmentController {
 
   init() {
     const createAssignmentButton = document.getElementById("task-assignment");
-    createAssignmentButton.addEventListener("keypress", createAssignment);
+    createAssignmentButton.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        let assignment = createAssignment();
+        AssignmentView.displayAssignment(assignment);
+      }
+    });
   }
   renderAssignment(assignmentData) {
     const assignmentModel = new AssignmentModel(assignmentData.name);

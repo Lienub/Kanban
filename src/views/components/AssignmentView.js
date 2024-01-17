@@ -1,7 +1,7 @@
 import { deleteAssignment } from "../../models/AssignmentModel.js";
 
 export default class AssignmentView {
-  static render(assignmentModel) {
+  static displayAssignment(assignmentModel) {
 
     var assignmentsBlock = document.getElementById("assignments-block");
 

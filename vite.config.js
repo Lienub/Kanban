@@ -1,5 +1,4 @@
 import path from "node:path";
-console.log(path.resolve(__dirname, "src", "index.html"));
 export default {
     base: './',
     root: path.resolve(__dirname, "src"),

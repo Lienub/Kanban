@@ -13,7 +13,7 @@
         "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
         "no-multi-spaces": ["error"],
         "no-undef": "off",
-        "no-console": "off",
+        "no-console": "error",
         "camelcase": ["error", { "properties": "never", "ignoreDestructuring": true }]
     }
 }
