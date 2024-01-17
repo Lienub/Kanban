@@ -3,6 +3,7 @@ import LocalStorage from "./LocalStorage.js";
 import TaskView from "../views/components/TaskView.js";
 import { setDisplayForm } from "./modules/taskDisplay.js";
 import StatusEnum from "../models/StatusEnum.js";
+import { refreshAllDependencies } from "../utils/dependencyUtils.js";
 import { calculateBusinessDays, calculateWorkDays, getCurrentDate } from "../utils/dateUtils.js";
 
 export default class TaskController {
@@ -19,6 +20,7 @@ export default class TaskController {
       this.localStorage.modifyTask(task);
       TaskView.displayTask(task, this.localStorage)
     });
+    refreshAllDependencies();
   }
 
   init() {
@@ -63,7 +65,7 @@ export default class TaskController {
           document.getElementById("task-details-note").value
         );
       }
-      
+
       setDisplayForm();
     });
 
@@ -94,6 +96,7 @@ export default class TaskController {
     var workDaysCount = calculateWorkDays(taskStartDate, taskEndDate);
     var businessDaysCount = calculateBusinessDays(taskStartDate, taskEndDate);
 
+    let dependencies = this.getTaskDependencies();
     var newTaskModel = new TaskModel(
       this.taskIdCounter++,
       taskName,
@@ -107,10 +110,11 @@ export default class TaskController {
       StatusEnum.TODO,
       "",
       workDaysCount,
-      businessDaysCount
+      businessDaysCount,
+      dependencies
     );
-
     this.addTask(newTaskModel);
+    refreshAllDependencies();
   }
   /**
    * this method modifies and saves a task
@@ -143,6 +147,7 @@ export default class TaskController {
     let taskNotes = document.getElementById('task-details-note').value
     var workDaysCount = calculateWorkDays(taskStartDate, taskEndDate);
     var businessDaysCount = calculateBusinessDays(taskStartDate, taskEndDate);
+    let dependencies = this.getTaskDependencies();
 
     var newTaskModel = new TaskModel(
       taskId,
@@ -161,20 +166,23 @@ export default class TaskController {
           : StatusEnum.DONE,
       taskNotes,
       workDaysCount,
-      businessDaysCount
+      businessDaysCount,
+      dependencies
     );
     this.modifyTask(newTaskModel);
+    refreshAllDependencies();
   }
 
   /**
    * this method adds a note in the taks details and in the localStorage
-   * 
+   *
    * @param {number} taskId
    * @param {string} taskNote
    */
   addNoteToTask(taskId, taskNote) {
     this.localStorage.addNoteToTask(taskId, taskNote);
     TaskView.displayTask(taskId, this.localStorage);
+    this.renderTask(taskId);
   }
   /**
    * this method adds a task in the localStorage and in the tasks array
@@ -193,6 +201,30 @@ export default class TaskController {
   modifyTask(taskModel) {
     this.localStorage.modifyTask(taskModel);
     TaskView.displayTask(taskModel, this.localStorage);
+    this.renderTask(taskModel);
+  }
+
+  renderTask(taskData) {
+    var workDaysCount = calculateWorkDays(taskData.startDate, taskData.endDate);
+    var businessDaysCount = calculateBusinessDays(taskData.startDate, taskData.endDate);
+    let dependencies = this.getTaskDependencies();
+    const taskModel = new TaskModel(
+      taskData.id,
+      taskData.name,
+      taskData.description,
+      taskData.startDate,
+      taskData.endDate,
+      taskData.completDate,
+      taskData.assignments,
+      taskData.tags,
+      taskData.codeColor,
+      taskData.status,
+      taskData.note,
+      workDaysCount,
+      businessDaysCount,
+      dependencies
+    );
+    TaskView.render(taskModel, this.localStorage); // render the task in the DOM
   }
   /**
    * this method adds event listeners for task drag-and-drop
@@ -207,28 +239,40 @@ export default class TaskController {
       const id = event.dataTransfer.getData("id");
       const tasks = this.localStorage.loadTasks();
       let taskId = id.split("-")[1];
-      const draggedTask = tasks.find((task) => {
-        if (task.id == taskId) {
-          return task;
-        }
-      });
+      const draggedTask = tasks.find((task) => task.id == taskId);
+
       if (draggedTask) {
         let status = event.target.id;
-        let completDate = "";
-        if(status == "done") {
-          completDate = getCurrentDate();
-        }
+        let completDate = status === "done" ? getCurrentDate() : "";
         this.localStorage.modifyCompleteDate(taskId, completDate);
         this.localStorage.modifyTaskStatus(taskId, status);
       }
+
       const task = document.getElementById(id);
       if (event.target === element) {
+        // Move the task
         event.target.appendChild(task);
+
+        refreshAllDependencies();
       }
     });
 
     element.addEventListener("dragover", (event) => {
       event.preventDefault();
     });
+  }
+   /**
+   * This function allows you to get all dependencies in
+   * multipl selector
+   *
+   */
+   getTaskDependencies() {
+    const dependencyInput =
+      document.getElementById("task-dependencies").selectedOptions;
+    var dependencies = Array.from(dependencyInput).map(({ value }) => value);
+    dependencies = dependencies.filter((element) => {
+      return element !== null;
+    });
+    return dependencies;
   }
 }

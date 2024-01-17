@@ -31,20 +31,20 @@ export default class LocalStorage {
     tasks.push(task);
     this.saveTasks(tasks);
   }
-    /**
+  /**
    * this method modifies the complete date of a task in local storage
    *
    * @param {number} taskId
    * @param {string} completeDate
    */
-    modifyCompleteDate(taskId, completeDate) {
-      let tasks = this.loadTasks();
-      let task = tasks.find((task) => task.id == taskId);
-      task.completeDate = completeDate;
-      tasks.splice(tasks.indexOf(task), 1);
-      tasks.push(task);
-      this.saveTasks(tasks);
-    }
+  modifyCompleteDate(taskId, completeDate) {
+    let tasks = this.loadTasks();
+    let task = tasks.find((task) => task.id == taskId);
+    task.completeDate = completeDate;
+    tasks.splice(tasks.indexOf(task), 1);
+    tasks.push(task);
+    this.saveTasks(tasks);
+  }
   /**
    * this method loads the tasks from local storage
    *
@@ -100,7 +100,7 @@ export default class LocalStorage {
   }
   /**
    * this method modifies a task
-   * 
+   *
    * @param {TaskModel} task
    */
   modifyTask(task) {
@@ -110,7 +110,7 @@ export default class LocalStorage {
 
   /**
    * this method adds a note to a task
-   * 
+   *
    * @param {number} taskId
    * @param {string} taskNote
    */
@@ -120,6 +120,25 @@ export default class LocalStorage {
     task.note = taskNote;
     tasks.splice(tasks.indexOf(task), 1);
     tasks.push(task);
+    this.saveTasks(tasks);
+  }
+  /**
+   * this method allows you to update
+   * dependencies of a task with his id
+   *
+   * @param {number} taskId
+   * @param {string} taskNote
+   */
+  updateDependencies(taskId) {
+    const tasks = this.loadTasks();
+    tasks.forEach((task) => {
+      if (task.dependencies && task.dependencies.length > 0) {
+        task.dependencies = task.dependencies.filter(
+          (dependencyId) => dependencyId !== taskId
+        );
+      }
+    });
+
     this.saveTasks(tasks);
   }
 }

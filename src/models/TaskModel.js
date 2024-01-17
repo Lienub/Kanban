@@ -14,7 +14,8 @@ export default class TaskModel {
     status = StatusEnum.TODO,
     note = "",
     workDaysCount = 0,
-    businessDaysCount = 0
+    businessDaysCount = 0,
+    dependencies = []
   ) {
     this.id = id;
     this.name = name;
@@ -30,5 +31,6 @@ export default class TaskModel {
     this.note = note;
     this.workDaysCount = workDaysCount;
     this.businessDaysCount = businessDaysCount;
+    this.dependencies = dependencies;
   }
 }
