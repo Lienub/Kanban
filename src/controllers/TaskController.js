@@ -201,7 +201,6 @@ export default class TaskController {
   modifyTask(taskModel) {
     this.localStorage.modifyTask(taskModel);
     TaskView.displayTask(taskModel, this.localStorage);
-    this.renderTask(taskModel);
   }
 
   renderTask(taskData) {

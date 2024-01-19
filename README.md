@@ -1,6 +1,10 @@
 # A52 Projet - Kanban Oueb
 
 ## À propos
+
+![BG](screens/bg.jpeg)
+![Create task](screens/create_task.png)
+
 Projet réalisé dans le cadre du module A52 Qualité de développement, consistant à réaliser une application web de gestion de projet Kanban en HTML/CSS/JS (Vanilla).
 
 ## Documents
@@ -45,3 +49,6 @@ npm run lint .
 # ou
 npm run lint <fichier>
 ```
+## License
+
+Distribué sous licence MIT. Voir [License](./LICENSE) pour plus d'informations.

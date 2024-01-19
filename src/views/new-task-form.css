@@ -108,6 +108,7 @@ display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
   }
   
 /* Form input fields */
@@ -238,6 +239,9 @@ div#assignments-block > div > button, div#tags-block > div > button {
     RESPONSIVE AREA 
 */
 @media screen and (max-width: 600px) {
+    header {
+        flex-direction: column;
+    }
     #create-new-task-form > div {
         width: 80%;
         min-width: 300px;
@@ -262,6 +266,9 @@ div#assignments-block > div > button, div#tags-block > div > button {
 }
 
 @media screen and (min-width: 601px) and (max-width: 1024px) {
+    header {
+        flex-direction: column;
+    }
     #create-new-task-form > div {
         width: 50%;
         min-width: 400px;
@@ -289,6 +296,9 @@ div#assignments-block > div > button, div#tags-block > div > button {
 
 /* Desktop styles using media query */
 @media screen and (min-width: 1025px) {
+    header {
+        flex-direction: row;
+    }
     #create-new-task-form > div {
         min-width: 600px;
     }
@@ -304,7 +314,6 @@ div#assignments-block > div > button, div#tags-block > div > button {
         width: 90%;
     }
 }
-
 /*
     End create-new-task-form 
     ========================    */
