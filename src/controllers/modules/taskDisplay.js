@@ -2,6 +2,7 @@ import { resetFormToCreateTask } from "../../utils/resetForm";
 import LocalStorage from "../LocalStorage";
 
 export function setDisplayForm() {
+  document.querySelector("#task-form-header h2").innerText = "Nouvelle tâche";
   const toggleFormCheckbox = document.getElementById("toggleForm");
   const createNewTaskForm = document.getElementById("create-new-task-form");
   const closeButton = document.getElementById("closeForm");
