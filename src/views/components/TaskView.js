@@ -138,6 +138,7 @@ export default class TaskView {
         let id = newTask.id.split("-")[1];
         let task = localStorage.getTaskById(id);
         document.getElementById("create-new-task-form").classList.add("show");
+        document.querySelector("#task-form-header h2").innerText = "Modifier la tâche";
         document.getElementById("task-name").value = task.name;
         document.getElementById("task-description").value = task.description;
         document.getElementById("task-start-date").value = task.startDate;
