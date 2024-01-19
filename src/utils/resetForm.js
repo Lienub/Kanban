@@ -3,6 +3,7 @@
 */
 export function resetFormToCreateTask() {
   var containerForm = document.getElementById("create-new-task-form");
+  containerForm.classList.remove("show");
   var inputs = containerForm.getElementsByTagName("input");
   for (var i = 0; i < inputs.length; i++) {
     inputs[i].value = "";
